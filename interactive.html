@@ -13,15 +13,27 @@
   <body>
     <h1>Practice with interactivity in D3</h1>
     <p>This is a paragraph element.</p>
+    <div id = "dropdowns">
+      <span id = "grad">
+        <label for="Graduation">Graduation Date: </label>
+        <input type="date">
+      </span>
+      <span id ="start">
+          <label for="Start">Desired Start Date: </label>
+          <input type="date">
+      </span>
+      <span id="STEM">
+          <label for="STEM">Do you qualify for STEM extension?</label>
+          <select name="STEM">
+            <option value="No">No</option>
+            <option value="Yes">Yes</option>
+          </select>
+        </span>
+    </div>
 
     <!-- div where the graph will take place -->
    <div id="canvas">
-     <div id = "gradDropdown"
-       <label for="Graduation">Graduation Date: </label>
-       <input type="date">
-     </div>
      <svg id="chart" >
-        <label for="start">Start date:</label>
      </svg>
    </div>
     <!--link js file-->
