@@ -7,5 +7,5 @@ console.log(startingdate)
 console.log( typeof graduationDate)
 
 function gracePeriodEnd (str){
-    d3.select('#startingdate').setAttribute('max',)
+    //d3.select('#startingdate').setAttribute('max',)
 }
