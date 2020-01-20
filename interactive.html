@@ -9,6 +9,8 @@
     <!--to use D3-->
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <title>OPT Timeline</title>
+    <!--fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Fjalla+One&display=swap" rel="stylesheet">
   </head>
   <body>
     <h1>Optional Practical Training (OPT) Timeline</h1>
@@ -20,11 +22,11 @@
     </p>
     <div id = "dropdowns">
       <span id = "grad">
-        <label for="Graduation">Graduation Date: </label>
+        <label for="Graduation">Program End Date: </label>
         <input type="date">
       </span>
       <span id ="start">
-          <label for="Start">Desired Start Date: </label>
+          <label for="Start">Desired Job Start Date: </label>
           <input type="date">
       </span>
       <span id="STEM">
@@ -39,6 +41,7 @@
     <!-- div where the graph will take place -->
    <div id="canvas">
      <svg id="chart" >
+
      </svg>
    </div>
     <!--link js file-->

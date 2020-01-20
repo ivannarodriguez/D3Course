@@ -1,15 +1,26 @@
-body {
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+h1 {
+  font-family: 'Fjalla One', sans-serif;
+  color: #97252B;
+}
+
+.labels{
+  font-family: 'Fjalla One', sans-serif;
+  background-color: black;
+  opacity: 1;
 }
 
 div#dropdowns{
   position: relative;
+  border: 15px rebeccapurple;
+  /* background-color: red; */
   width: 800px; 
 }
 
 div#canvas {
-  border-radius: 0px;
-  position: relative; left: 0px;
+  /* border-radius: 0px; */
+  border: 50px green;
+  /* background-color: rebeccapurple; */
+  position: relative; left: 0px; 
   width: 800px;
 }
 
@@ -24,20 +35,26 @@ select {
 span {
   position: relative; left:0px;
   border: 15px;
-  width: 140px;
+  width: 400px;
   display: inline-block;
   /* justify-content: center; */
   text-align: center;
 }
 
-
-svg#chart {
-  background-color: blue;
-  opacity: 0.2;
-  /* position: relative;  */
-    /* left: 150px; bottom:0px; */
+.blackline{
+  stroke: black;
+  stroke-width: 5;
 }
 
-g#plot-area{
-  fill: gray;
+.dottedline{
+  stroke: black;
+  opacity: 0.2;
+  stroke-dasharray: 4,4;
+  stroke-width: 5;
+  fill: none;
+}
+
+.endpoints{
+  fill : black;
+  opacity: 0.3;
 }
