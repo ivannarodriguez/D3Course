@@ -1,23 +1,21 @@
 const graceDays = 60
 
-let graduationDate = d3.select('#graduation')
+let graduationDate = d3.select('#graduation').property('value')
 console.log(graduationDate)
 let startingdate = d3.select('#startingdate').property('value')
 console.log(startingdate)
-console.log( typeof graduationDate)
+
 
 function gracePeriodEnd (str){
     var date = new Date(str);
-    date.setDate(date + graceDays);
-    return date
+    var newDate = new Date(date.setDate(date.getDate() + graceDays));
+    var finalNewDate = newDate.toJSON().slice(0,10)
+    return finalNewDate
 }
   
-
-
+function setGracePeriodEnd (str){
+    d3.select('#startingdate')
+    .property('max', '2020-07-21')
+    .attr('min', graduationDate)
+}
 console.log(gracePeriodEnd(graduationDate))
-var date = new Date(graduationDate);
-console.log(date)
-console.log(typeof date)
-console.log( typeof graduationDate)
-var newDate = date.setDate(date + gracePeriodEnd)
-console.log(newDate)
