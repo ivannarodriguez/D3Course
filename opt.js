@@ -52,14 +52,14 @@ let svg = d3.select('div#canvas svg#chart')
           .attr('y1',innerHeight/2-r1)
           .attr('x2',tlength)
           .attr('y2',innerHeight/2+r1);
-      //Grad Date  
+      //Grad Circle  
         svg.append("circle")
           .attr("id", "gradcircle")
           .attr("cx", tlength -  tlength/3)
           .attr("cy", innerHeight/2)
           .attr("r", r2)
           .attr("fill", "#97252B")
-          .attr("opacity", 0.5);
+          .attr("opacity", 0.4);
         svg.append("text")
           .text('GRAD')
           .attr('id', 'gradlabel')
