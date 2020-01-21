@@ -4,9 +4,9 @@ const optDuration = 1 // 1 year
 
 
 let graduationDate = d3.select('#graduation').property('value')
-console.log(graduationDate)
+
 let startingdate = d3.select('#startingdate').property('value')
-//console.log(startingdate)
+
 
 // Function that recieves graduation date and calculates the date of the 60 day grace 
 //period after graduation
@@ -42,9 +42,10 @@ function endOPT (str){
 
 function setGracePeriodEnd (str){
     d3.select('#startingdate')
-    .property('max', '2020-07-21')
-    .attr('min', graduationDate)
+    .property('max', str);  
 }
-console.log(gracePeriodEnd(graduationDate))
-console.log(earlyApplicationDate(graduationDate))
-console.log(endOPT(startingdate))
+
+function setGracePeriodStart (str){
+    d3.select('#startingdate')
+    .property('min', str)
+}
