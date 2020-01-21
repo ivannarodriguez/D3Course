@@ -58,10 +58,11 @@ let svg = d3.select('div#canvas svg#chart')
           .attr("cy", innerHeight/2)
           .attr("r", r2)
           .attr("fill", "#97252B")
-          .attr("opacity", 0.2);
+          .attr("opacity", 0.5);
         svg.append("text")
           .text('GRAD')
           .attr('id', 'gradlabel')
+          .style('fill', 'white')
           .attr('x', tlength -  tlength/3 - 1.2*r1)
           .attr('y', innerHeight/2 -r1/2);
 
@@ -147,7 +148,7 @@ let svg = d3.select('div#canvas svg#chart')
           .attr("cx", 2.21 * tlength - r2) //x posiion plus radius
           .attr("cy", innerHeight/2 + r2)
           .attr("r", r1);
-
+        
 
 
 

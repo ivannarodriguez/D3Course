@@ -29,7 +29,7 @@ text#gradlabel{
 
 div#dropdowns{
   position: relative;
-  border: 15px rebeccapurple;
+  /* border: 15px rebeccapurple; */
   /* background-color: red; */
   width: 800px; 
 }
