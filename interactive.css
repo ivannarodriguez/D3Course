@@ -9,6 +9,13 @@ h1 {
   opacity: 1;
 }
 
+text#gradlabel{
+  font-family: 'Fjalla One', sans-serif;
+  color: white;
+  font-size: large;
+  opacity: 1;
+}
+
 div#dropdowns{
   position: relative;
   border: 15px rebeccapurple;

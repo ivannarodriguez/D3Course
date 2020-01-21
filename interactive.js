@@ -59,6 +59,11 @@ let svg = d3.select('div#canvas svg#chart')
           .attr("r", r2)
           .attr("fill", "#97252B")
           .attr("opacity", 0.2);
+        svg.append("text")
+          .text('GRAD')
+          .attr('id', 'gradlabel')
+          .attr('x', tlength -  tlength/3 - 1.2*r1)
+          .attr('y', innerHeight/2 -r1/2);
 
         //dotted lines
         svg.append('rect')
