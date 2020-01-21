@@ -1,71 +1,72 @@
-const graceDays = 60 //60 days
-const earliestApplication = -90 //-90 days
-const optDuration = 1 // 1 year
-const stemOptDuration = 2 //2 years
+// const graceDays = 60 //60 days
+// const earliestApplication = -90 //-90 days
+// const optDuration = 1 // 1 year
+// const stemOptDuration = 2 //2 years
 
-let graduationDate = d3.select('#graduation').property('value')
+// let graduationDate = d3.select('#graduation').property('value')
 
-let startingdate = d3.select('#startingdate').property('value')
+// let startingdate = d3.select('#startingdate').property('value')
 
-let qualifyStem = d3.select('#stemExtension').property('value')
+// // let qualifyStem = d3.select('#stemExtension').property('value')
 
-// Function that recieves graduation date and calculates the date of the 60 day grace
-//period after graduation
-//Recieves string in format year-month-day and returns string in same format
-function gracePeriodEnd (str){
-    var date = new Date(str);
-    var newDate = new Date(date.setDate(date.getDate() + graceDays));
-    var finalNewDate = newDate.toJSON().slice(0,10);
-    return finalNewDate;
-}
-
-
-// Function that recieves graduation date and calculates the date of the earliest
-// possible application day
-//Recieves string in format year-month-day and returns string in same format
-function earlyApplicationDate (str){
-    var date = new Date (str);
-    var newDate = new Date(date.setDate(date.getDate()+ earliestApplication));
-    var finalNewDate = newDate.toJSON().slice(0,10);
-    return finalNewDate;
-}
+// // Function that recieves graduation date and calculates the date of the 60 day grace
+// //period after graduation
+// //Recieves string in format year-month-day and returns string in same format
+// function gracePeriodEnd (str){
+//     var date = new Date(str);
+//     var newDate = new Date(date.setDate(date.getDate() + graceDays));
+//     var finalNewDate = newDate.toJSON().slice(0,10);
+//     return finalNewDate;
+// }
 
 
-// Function that recieves starting date and calculates the end date of OPT
-////Recieves string in format year-month-day and returns string in same format
-function endOPT (str){
-    var date = new Date(str);
-    var dateTemp = new Date(date.setFullYear(date.getFullYear()+ optDuration))
-    var endDate = dateTemp.toJSON().slice(0,10);
-    return endDate;
-}
+// // Function that recieves graduation date and calculates the date of the earliest
+// // possible application day
+// //Recieves string in format year-month-day and returns string in same format
+// function earlyApplicationDate (str){
+//     var date = new Date (str);
+//     var newDate = new Date(date.setDate(date.getDate()+ earliestApplication));
+//     var finalNewDate = newDate.toJSON().slice(0,10);
+//     return finalNewDate;
+// }
 
-let optEndDate = endOPT(startingdate)
 
-//Function that recieves string with grace period end date and sets the max date on the
-// starting date calendar
-function setGracePeriodEnd (str){
-    d3.select('#startingdate')
-    .property('max', str);
-}
+// // Function that recieves starting date and calculates the end date of OPT
+// ////Recieves string in format year-month-day and returns string in same format
+// function endOPT (str){
+//     var date = new Date(str);
+//     var dateTemp = new Date(date.setFullYear(date.getFullYear()+ optDuration))
+//     var endDate = dateTemp.toJSON().slice(0,10);
+//     return endDate;
+// }
 
-//Function that recieves string with graduation date and set min date on the starting date
-//calendar
-function setGracePeriodStart (str){
-    d3.select('#startingdate')
-    .property('min', str)
-}
+// let optEndDate = endOPT(startingdate)
+
+// //Function that recieves string with grace period end date and sets the max date on the
+// // starting date calendar
+// function setGracePeriodEnd (str){
+//     d3.select('#startingdate')
+//     .property('max', str);
+// }
+
+// //Function that recieves string with graduation date and set min date on the starting date
+// //calendar
+// function setGracePeriodStart (str){
+//     d3.select('#startingdate')
+//     .property('min', str)
+// }
 
 // This function will only work if a student qualifies for OPT. It recieves string with end date
 // adds 2 years to the end date
-function stemEndDate (str) {
-  if (qualifyStem === 'Yes') {
-    var date = new Date(str)
-    var stemStartDateTemp = new Date(date.setFullYear(date.getFullYear() + stemOptDuration))
-    var stemStartDate = stemStartDate.toJSON().slice(0,10)
-    return stemStartDate
-  }
-let stemEnd = stemEndDate(optEndDate)
+// function stemEndDate (str) {
+//   if (qualifyStem === 'Yes') {
+//     var date = new Date(str)
+//     var stemStartDateTemp = new Date(date.setFullYear(date.getFullYear() + stemOptDuration))
+//     var stemStartDate = stemStartDate.toJSON().slice(0,10)
+//     return stemStartDate
+//   }
+//   }
+// let stemEnd = stemEndDate(optEndDate)
 
 // This function will only draw a timeline if a stident qualifies for OPT.
 
@@ -87,13 +88,11 @@ let tlength = innerWidth/2.5
 //radius sizes
 let r1 = 15
 let r2 = 40
-//dotted line height
-let dheight
 
 d3.select('div#dropdowns')
     .attr('width', svgouterWidth);
 //append svg to the body of the page
-let svg = d3.select//}('div#canvas svg#chart')
+let svg = d3.select('div#canvas svg#chart')
             .attr('width', svgouterWidth)
             .attr('height', svgouterHeight)
             .append('g')
