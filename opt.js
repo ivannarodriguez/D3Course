@@ -59,7 +59,7 @@ function setGracePeriodStart (str){
 // This function will only work if a student qualifies for OPT. It recieves string with end date
 // adds 2 years to the end date
 function stemEndDate (str) {
-  if qualifyStem === 'Yes' {
+  if (qualifyStem === 'Yes') {
     var date = new Date(str)
     var stemStartDateTemp = new Date(date.setFullYear(date.getFullYear() + stemOptDuration))
     var stemStartDate = stemStartDate.toJSON().slice(0,10)
