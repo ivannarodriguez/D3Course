@@ -49,3 +49,4 @@ function setGracePeriodStart (str){
     d3.select('#startingdate')
     .property('min', str)
 }
+
