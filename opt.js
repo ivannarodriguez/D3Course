@@ -57,7 +57,7 @@ function setGracePeriodStart (str){
 // Margin Convention
 let margins = { top: 20, right: 25, bottom: 30, left: 40 }
 let svgouterWidth = 800
-let svgouterHeight = 400
+let svgouterHeight = 500
 let innerWidth = svgouterWidth - margins.left - margins.right
 let innerHeight = svgouterHeight - margins.top - margins.bottom
 //-90 + 60 timeline length
@@ -124,12 +124,14 @@ let svg = d3.select('div#canvas svg#chart')
           .attr('y', innerHeight/2 -r1/2);
 
         //dotted lines
+        //bottom
         svg.append('rect')
           .attr('class', 'dottedline')
           .attr('x', tlength -  tlength/3 )
           .attr('y', innerHeight/2)
           .attr('width', tlength/3)
-          .attr('height', r2);
+          .attr('height', 2 * r2);
+        //top
         svg.append('rect')                      
           .attr('class', 'dottedline')
           .attr('x', 0)
@@ -147,63 +149,64 @@ let svg = d3.select('div#canvas svg#chart')
           .text('OPT Starts')
           .attr('class', 'labels')
           .attr('x', tlength-1.8*r2)
-          .attr('y', innerHeight/2 + 1.8*r2);
+          .attr('y', innerHeight/2 + 3 * r2);
         svg.append("text")
           .text('OPT Ends')
           .attr('class', 'labels')
           .attr('x', 1.9 * tlength - r2)
-          .attr('y', innerHeight/2 + 1.8*r2);
+          .attr('y', innerHeight/2 + 3 * r2);
+        
         //One year OPT
         svg.append("circle")
           .attr("class", "endpoints")
           .attr("cx", tlength - r2) //x posiion plus radius
-          .attr("cy", innerHeight/2 + r2)
+          .attr("cy", innerHeight/2 + 2 * r2)
           .attr("r", r1);
-        //start line
+        //left lil line
         svg.append("line")
           .attr("class", "blackline")
           .attr('x1',tlength - r2) 
-          .attr('y1', innerHeight/2 + r2 - r1)
+          .attr('y1', innerHeight/2 + 2 * r2 - r1)
           .attr('x2',tlength -r2)
-          .attr('y2', innerHeight/2 + r2 + r1);
+          .attr('y2', innerHeight/2 + 2 * r2 + r1);
         // long line
         svg.append("line")
           .attr("class", "blackline")
           .attr('x1', tlength - r2)
-          .attr('y1', innerHeight/2 + r2)
+          .attr('y1', innerHeight/2 + 2 * r2)
           .attr('x2', 2 * tlength - r2)
-          .attr('y2', innerHeight/2 + r2);
-        //end line
+          .attr('y2', innerHeight/2 + 2 * r2);
+        // right lil line
         svg.append("line")
           .attr("class", "blackline")
           .attr('x1', 2 * tlength - r2) 
-          .attr('y1', innerHeight/2 + r2 - r1)
+          .attr('y1', innerHeight/2 + 2 * r2 - r1)
           .attr('x2', 2 * tlength - r2)
-          .attr('y2', innerHeight/2 + r2 + r1);
+          .attr('y2', innerHeight/2 + 2 * r2 + r1);
         svg.append("circle")
           .attr("class", "endpoints")
           .attr("cx", 2 * tlength - r2) //x posiion plus radius
-          .attr("cy", innerHeight/2 + r2)
+          .attr("cy", innerHeight/2 + 2 * r2)
           .attr("r", r1);
         // 60 days after OPT
         // long line
         svg.append("line")
           .attr("class", "dottedline")
           .attr('x1', 2 * tlength - r2)
-          .attr('y1', innerHeight/2 + r2)
+          .attr('y1', innerHeight/2 + 2 * r2)
           .attr('x2', 2.21 * tlength - r2) // 2.21 line length
-          .attr('y2', innerHeight/2 + r2);
-        // end line
+          .attr('y2', innerHeight/2 + 2 * r2);
+        // right most lil line
         svg.append("line")
           .attr("class", "blackline")
           .attr('x1', 2.21 * tlength - r2) 
-          .attr('y1', innerHeight/2 + r2 - r1)
+          .attr('y1', innerHeight/2 + 2 * r2 - r1)
           .attr('x2', 2.21 * tlength - r2) // 2.21 line length
-          .attr('y2', innerHeight/2 + r2 + r1);
+          .attr('y2', innerHeight/2 + 2 * r2 + r1);
         svg.append("circle")
           .attr("class", "endpoints")
           .attr("cx", 2.21 * tlength - r2) //x posiion plus radius
-          .attr("cy", innerHeight/2 + r2)
+          .attr("cy", innerHeight/2 + 2 * r2)
           .attr("r", r1);
 
 
