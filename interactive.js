@@ -54,6 +54,7 @@ let svg = d3.select('div#canvas svg#chart')
           .attr('y2',innerHeight/2+r1);
       //Grad Date  
         svg.append("circle")
+          .attr("id", "gradcircle")
           .attr("cx", tlength -  tlength/3)
           .attr("cy", innerHeight/2)
           .attr("r", r2)
@@ -148,6 +149,8 @@ let svg = d3.select('div#canvas svg#chart')
           .attr("cx", 2.21 * tlength - r2) //x posiion plus radius
           .attr("cy", innerHeight/2 + r2)
           .attr("r", r1);
+
+
         
 
 
