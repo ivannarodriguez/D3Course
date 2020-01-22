@@ -87,7 +87,7 @@ let innerHeight = svgouterHeight - margins.top - margins.bottom
 let tlength = innerWidth/2.6
 //radius sizes
 let r1 = 15
-let r2 = 40
+let r2 = 45
 
 d3.select('div#dropdowns')
     .attr('width', svgouterWidth);
@@ -129,7 +129,8 @@ let svg = d3.select('div#canvas svg#chart')
           .attr('y1',innerHeight/2-r1)
           .attr('x2',tlength)
           .attr('y2',innerHeight/2+r1);
-      //Grad Circle
+      
+       //Grad Circle
       svg.append("circle")
         .attr("id", "gradcircle")
         .attr("cx", tlength -  tlength/3)
@@ -195,69 +196,69 @@ let svg = d3.select('div#canvas svg#chart')
         .attr("class", "blackline")
         .attr('x1', tlength - 1.9 * r2)
         .attr('y1', innerHeight/2 + 2 * r2)
-        .attr('x2', 2 * tlength)
+        .attr('x2', 2 * tlength + 2 * r1)
         .attr('y2', innerHeight/2 + 2 * r2);
       // right lil line
       svg.append("line")
         .attr("class", "blackline")
-        .attr('x1', 2 * tlength )
+        .attr('x1', 2 * tlength + 2 * r1)
         .attr('y1', innerHeight/2 + 2 * r2 - r1)
-        .attr('x2', 2 * tlength)
+        .attr('x2', 2 * tlength + 2 * r1)
         .attr('y2', innerHeight/2 + 2 * r2 + r1);
       svg.append("circle")
         .attr("class", "endpoints")
-        .attr("cx", 2 * tlength) //x posiion plus radius
+        .attr("cx", 2 * tlength + 2 * r1) //x posiion plus radius
         .attr("cy", innerHeight/2 + 2 * r2)
         .attr("r", r1);
       // 60 days after OPT
-      // long line
+      // dotted 60 days line
       svg.append("line")
         .attr("class", "dottedline")
-        .attr('x1', 2 * tlength)
+        .attr('x1', 2.1 * tlength)
         .attr('y1', innerHeight/2 + 2 * r2)
-        .attr('x2', 2.21 * tlength + r2) // 2.21 line length
+        .attr('x2', 2.1 * tlength + 2 * r2) // 2.21 line length
         .attr('y2', innerHeight/2 + 2 * r2);
       // right most lil line
       svg.append("line")
         .attr("class", "blackline")
-        .attr('x1', 2.21 * tlength + r2)
+        .attr('x1', 2.1 * tlength + 2 * r2)
         .attr('y1', innerHeight/2 + 2 * r2 - r1)
-        .attr('x2', 2.21 * tlength + r2) // 2.21 line length
+        .attr('x2', 2.1 * tlength + 2 * r2) // 2.21 line length
         .attr('y2', innerHeight/2 + 2 * r2 + r1);
       svg.append("circle")
         .attr("class", "endpoints")
-        .attr("cx", 2.21 * tlength + r2) //x posiion plus radius
+        .attr("cx", 2.1 * tlength + 2 * r2) //x posiion plus radius
         .attr("cy", innerHeight/2 + 2 * r2)
         .attr("r", r1);
       
-    let tooltip =  d3.select('g#plot-area')
+    let tooltip =  d3.select('div#canvas')
         .append('div')
-        .attr('width', '100')
-        .attr('height','100')
         .attr("class", "tooltip")
         .style("position", "absolute")
-        .style("z-index", "10")
-        .style("background-color", 'red')
-        .style("visibility", 'hidden')
-        .text('a simple tooltip');
+        .style("visibility", 'hidden');
       
       d3.select('g#plot-area')
         .selectAll('circle')
         .on('mouseover', function(){return tooltip.style("visibility", "visible");})
-        .on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
-        .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
+        // .on("mousemove", function(){return tooltip.style("top", (event.pageY)+"px").style("left",(event.pageX)+"px");})
+        .on("mousemove", show_info)
+        .on("mouseleave", function(){return tooltip.style("visibility", "hidden");});
+      
+      d3.select('g#plot-area')
+        .selectAll('.dottedline')
+        .on('mouseover', function(){return tooltip.style("visibility", "visible");})
+        // .on("mousemove", function(){return tooltip.style("top", (event.pageY)+"px").style("left",(event.pageX)+"px");})
+        .on("mousemove", show_info)
+        .on("mouseleave", function(){return tooltip.style("visibility", "hidden");});
 
-    // let tooltip =  d3.select('body')
-    //     .append('div')
-    //     .attr("class", "tooltip")
-    //     .style("position", "absolute")
-    //     .style("z-index", "10")
-    //     .attr("background-color", 'red')
-    //     // .style("visibility", 'hidden')
-    //     .text('a simple tooltip');
-
-    //   d3.select('body').append('g#plot-area');
-    //   d3.selectAll('circle')
-    //     .on('mouseover', function(){return tooltip.style("visibility", "visible");})
-    //     .on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
-    //     .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
+    function show_info(d){
+      let mouseLoc = d3.mouse(this)
+      let info = "tootlip"
+        // .html instead of .text() allows us to supply html markup here
+        d3.selectAll('.tooltip, .info')
+        .html(info)
+        .style('visibility', 'visible')
+        // left and top only affect .tooltip b/c position = absolute -- see css
+        .style('left', mouseLoc[0] + margins.left + 'px')
+        .style('top', mouseLoc[1] + 'px')
+    }
