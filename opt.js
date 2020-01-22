@@ -51,9 +51,10 @@ function setGracePeriodEnd (str){
 
 //Function that recieves string with graduation date and set min date on the starting date
 //calendar
-function setGracePeriodStart (str){
+function setGracePeriodStart (){
+    graduationDate = d3.select('#graduation').property('value')
     d3.select('#startingdate')
-    .property('min', str)
+    .property('min', graduationDate)
 }
 
 // This function will only work if a student qualifies for OPT. It recieves string with end date
@@ -77,6 +78,11 @@ function stemEndDate (str) {
 }
 */
 
+d3.select('#graduation').on('input', setGracePeriodStart)
+//d3.select('#graduation').on('input', setGracePeriodStart(graduationDate))
+d3.select('#graduation').on('input', setGracePeriodEnd(gracePeriodEnd(graduationDate)))
+
+
 // Margin Convention
 let margins = { top: 20, right: 25, bottom: 30, left: 40 }
 let svgouterWidth = 800
@@ -99,7 +105,7 @@ let svg = d3.select('div#canvas svg#chart')
               .attr('id', "plot-area")
               .attr('transform', 'translate(' + margins.left + ',' + margins.top + ')');
       // timeline
-      svg.append("line")
+svg.append("line")
         .attr("class", "blackline")
         .attr('x1',0)
         .attr('y1',innerHeight/2)
@@ -264,5 +270,3 @@ let svg = d3.select('div#canvas svg#chart')
     }
 
 
-d3.select('#graduation').on('input', setGracePeriodStart(graduationDate))
-d3.select('#graduation').on('input', setGracePeriodEnd(gracePeriodEnd(graduationDate)))
