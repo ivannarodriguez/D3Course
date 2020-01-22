@@ -71,11 +71,11 @@ function stemEndDate (str) {
 
 // This function will only draw a timeline if a stident qualifies for OPT.
 
-/*function stemDrawLine (str) {
-//  if qualifyStem === 'Yes' {
+/*function stemDrawLine (str) 
+//  if qualifyStem === 'Yes' 
 //
-//  }
-}
+//  
+
 */
 
 d3.select('#graduation').on('input', setGracePeriodStart)
@@ -105,7 +105,7 @@ let svg = d3.select('div#canvas svg#chart')
               .attr('id', "plot-area")
               .attr('transform', 'translate(' + margins.left + ',' + margins.top + ')');
       // timeline
-svg.append("line")
+        svg.append("line")
         .attr("class", "blackline")
         .attr('x1',0)
         .attr('y1',innerHeight/2)
