@@ -98,7 +98,8 @@ let svg = d3.select('div#canvas svg#chart')
             .append('g')
               .attr('id', "plot-area")
               .attr('transform', 'translate(' + margins.left + ',' + margins.top + ')');
-      // timeline
+      // USCIS can receive your app section
+      // horizontal line
       svg.append("line")
         .attr("class", "blackline")
         .attr('x1',0)
@@ -170,31 +171,45 @@ let svg = d3.select('div#canvas svg#chart')
       svg.append("text")
         .text('OPT Starts')
         .attr('class', 'labels')
-        .attr('x', tlength-1.8*r2)
-        .attr('y', innerHeight/2 + 3 * r2);
+        .attr('x', tlength-1.80*r2)
+        .attr('y', innerHeight/2 + 2.8 * r2);
       svg.append("text")
         .text('OPT Ends')
         .attr('class', 'labels')
-        .attr('x', 1.9 * tlength)
-        .attr('y', innerHeight/2 + 3 * r2);
+        .attr('x', 2 * tlength)
+        .attr('y', innerHeight/2 + 2.8 * r2);
+      svg.append("text")
+        .text('+60 days')
+        .attr('class', 'labels')
+        .attr('x', 2.15 * tlength)
+        .attr('y', innerHeight/2 + 1.75 * r2);
 
       //One year OPT
-      //left lil vert line
-      svg.append("circle")
-        .attr("class", "endpoints")
-        .attr("cx", tlength - 1.9 * r2) //x posiion plus radius
-        .attr("cy", innerHeight/2 + 2 * r2)
-        .attr("r", r1);
+      // left lil vert line
+      // awk opt start rectangle
+      svg.append('rect')
+        .style('fill', 'black')
+        .style('opacity', '0.3')
+        .attr('x', tlength -  tlength/3)
+        .attr('y', innerHeight/2 + 1.85 * r2)
+        .attr('width', tlength/3)
+        .attr('height', r1);
       svg.append("line")
         .attr("class", "blackline")
-        .attr('x1',tlength - 1.9 * r2)
+        .attr('x1',tlength -  tlength/3)
         .attr('y1', innerHeight/2 + 2 * r2 - r1)
-        .attr('x2',tlength - 1.9 * r2)
+        .attr('x2',tlength -  tlength/3)
+        .attr('y2', innerHeight/2 + 2 * r2 + r1);
+      svg.append("line")
+        .attr("class", "blackline")
+        .attr('x1',tlength)
+        .attr('y1', innerHeight/2 + 2 * r2 - r1)
+        .attr('x2',tlength)
         .attr('y2', innerHeight/2 + 2 * r2 + r1);
       // long line
       svg.append("line")
         .attr("class", "blackline")
-        .attr('x1', tlength - 1.9 * r2)
+        .attr('x1', tlength)
         .attr('y1', innerHeight/2 + 2 * r2)
         .attr('x2', 2 * tlength + 2 * r1)
         .attr('y2', innerHeight/2 + 2 * r2);
@@ -240,14 +255,12 @@ let svg = d3.select('div#canvas svg#chart')
       d3.select('g#plot-area')
         .selectAll('circle')
         .on('mouseover', function(){return tooltip.style("visibility", "visible");})
-        // .on("mousemove", function(){return tooltip.style("top", (event.pageY)+"px").style("left",(event.pageX)+"px");})
         .on("mousemove", show_info)
         .on("mouseleave", function(){return tooltip.style("visibility", "hidden");});
       
       d3.select('g#plot-area')
         .selectAll('.dottedline')
         .on('mouseover', function(){return tooltip.style("visibility", "visible");})
-        // .on("mousemove", function(){return tooltip.style("top", (event.pageY)+"px").style("left",(event.pageX)+"px");})
         .on("mousemove", show_info)
         .on("mouseleave", function(){return tooltip.style("visibility", "hidden");});
 
