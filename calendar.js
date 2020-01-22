@@ -50,3 +50,6 @@ function setGracePeriodStart (str){
     .property('min', str)
 }
 
+d3.select('#graduation').on('input', setGracePeriodEnd(gracePeriodEnd(graduationDate)))
+
+d3.select('#graduation').on('input', setGracePeriodStart(graduationDate))
