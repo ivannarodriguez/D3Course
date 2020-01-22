@@ -40,7 +40,7 @@ function endOPT (str){
     return endDate;
 }
 
-let optEndDate = endOPT(startingdate)
+//let optEndDate = endOPT(startingdate)
 
 //Function that recieves string with grace period end date and sets the max date on the
 // starting date calendar
@@ -65,7 +65,7 @@ function stemEndDate (str) {
     var stemStartDate = stemStartDate.toJSON().slice(0,10)
     return stemStartDate
   }
-let stemEnd = stemEndDate(optEndDate)
+//let stemEnd = stemEndDate(optEndDate)
 
 // This function will only draw a timeline if a stident qualifies for OPT.
 
@@ -229,4 +229,4 @@ let svg = d3.select//}('div#canvas svg#chart')
           .attr("class", "endpoints")
           .attr("cx", 2.21 * tlength - r2) //x posiion plus radius
           .attr("cy", innerHeight/2 + 2 * r2)
-          .attr("r", r1);
+          .attr("r", r1)}
