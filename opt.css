@@ -64,6 +64,14 @@ span {
   stroke-width: 5;
 }
 
+.tooltip{
+  font-size: small;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  background-color: black;
+  color: white;
+  opacity: 0.7;
+}
+
 .dottedline{
   stroke: black;
   opacity: 0.5;
