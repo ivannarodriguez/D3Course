@@ -76,3 +76,7 @@ span {
   fill : black;
   opacity: 0.3;
 }
+
+.tooltip{
+  background-color:green;
+}

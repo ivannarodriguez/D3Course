@@ -84,7 +84,7 @@ let svgouterHeight = 500
 let innerWidth = svgouterWidth - margins.left - margins.right
 let innerHeight = svgouterHeight - margins.top - margins.bottom
 //-90 + 60 timeline length
-let tlength = innerWidth/2.5
+let tlength = innerWidth/2.6
 //radius sizes
 let r1 = 15
 let r2 = 40
@@ -174,58 +174,90 @@ let svg = d3.select('div#canvas svg#chart')
       svg.append("text")
         .text('OPT Ends')
         .attr('class', 'labels')
-        .attr('x', 1.9 * tlength - r2)
+        .attr('x', 1.9 * tlength)
         .attr('y', innerHeight/2 + 3 * r2);
 
       //One year OPT
+      //left lil vert line
       svg.append("circle")
         .attr("class", "endpoints")
-        .attr("cx", tlength - r2) //x posiion plus radius
+        .attr("cx", tlength - 1.9 * r2) //x posiion plus radius
         .attr("cy", innerHeight/2 + 2 * r2)
         .attr("r", r1);
-      //left lil line
       svg.append("line")
         .attr("class", "blackline")
-        .attr('x1',tlength - r2)
+        .attr('x1',tlength - 1.9 * r2)
         .attr('y1', innerHeight/2 + 2 * r2 - r1)
-        .attr('x2',tlength -r2)
+        .attr('x2',tlength - 1.9 * r2)
         .attr('y2', innerHeight/2 + 2 * r2 + r1);
       // long line
       svg.append("line")
         .attr("class", "blackline")
-        .attr('x1', tlength - r2)
+        .attr('x1', tlength - 1.9 * r2)
         .attr('y1', innerHeight/2 + 2 * r2)
-        .attr('x2', 2 * tlength - r2)
+        .attr('x2', 2 * tlength)
         .attr('y2', innerHeight/2 + 2 * r2);
       // right lil line
       svg.append("line")
         .attr("class", "blackline")
-        .attr('x1', 2 * tlength - r2)
+        .attr('x1', 2 * tlength )
         .attr('y1', innerHeight/2 + 2 * r2 - r1)
-        .attr('x2', 2 * tlength - r2)
+        .attr('x2', 2 * tlength)
         .attr('y2', innerHeight/2 + 2 * r2 + r1);
       svg.append("circle")
         .attr("class", "endpoints")
-        .attr("cx", 2 * tlength - r2) //x posiion plus radius
+        .attr("cx", 2 * tlength) //x posiion plus radius
         .attr("cy", innerHeight/2 + 2 * r2)
         .attr("r", r1);
       // 60 days after OPT
       // long line
       svg.append("line")
         .attr("class", "dottedline")
-        .attr('x1', 2 * tlength - r2)
+        .attr('x1', 2 * tlength)
         .attr('y1', innerHeight/2 + 2 * r2)
-        .attr('x2', 2.21 * tlength - r2) // 2.21 line length
+        .attr('x2', 2.21 * tlength + r2) // 2.21 line length
         .attr('y2', innerHeight/2 + 2 * r2);
       // right most lil line
       svg.append("line")
         .attr("class", "blackline")
-        .attr('x1', 2.21 * tlength - r2)
+        .attr('x1', 2.21 * tlength + r2)
         .attr('y1', innerHeight/2 + 2 * r2 - r1)
-        .attr('x2', 2.21 * tlength - r2) // 2.21 line length
+        .attr('x2', 2.21 * tlength + r2) // 2.21 line length
         .attr('y2', innerHeight/2 + 2 * r2 + r1);
       svg.append("circle")
         .attr("class", "endpoints")
-        .attr("cx", 2.21 * tlength - r2) //x posiion plus radius
+        .attr("cx", 2.21 * tlength + r2) //x posiion plus radius
         .attr("cy", innerHeight/2 + 2 * r2)
         .attr("r", r1);
+      
+    let tooltip =  d3.select('g#plot-area')
+        .append('div')
+        .attr('width', '100')
+        .attr('height','100')
+        .attr("class", "tooltip")
+        .style("position", "absolute")
+        .style("z-index", "10")
+        .attr("background-color", 'red')
+        .style("visibility", 'hidden')
+        .text('a simple tooltip');
+      
+      d3.select('g#plot-area')
+        .selectAll('circle')
+        .on('mouseover', function(){return tooltip.style("visibility", "visible");})
+        .on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
+        .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
+
+    // let tooltip =  d3.select('body')
+    //     .append('div')
+    //     .attr("class", "tooltip")
+    //     .style("position", "absolute")
+    //     .style("z-index", "10")
+    //     .attr("background-color", 'red')
+    //     // .style("visibility", 'hidden')
+    //     .text('a simple tooltip');
+
+    //   d3.select('body').append('g#plot-area');
+    //   d3.selectAll('circle')
+    //     .on('mouseover', function(){return tooltip.style("visibility", "visible");})
+    //     .on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
+    //     .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
