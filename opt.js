@@ -84,12 +84,10 @@ let svgouterHeight = 500
 let innerWidth = svgouterWidth - margins.left - margins.right
 let innerHeight = svgouterHeight - margins.top - margins.bottom
 //-90 + 60 timeline length
-let tlength = innerWidth/2.5
+let tlength = innerWidth/2.6
 //radius sizes
 let r1 = 15
-let r2 = 40
-//dotted line height
-let dheight
+let r2 = 45
 
 d3.select('div#dropdowns')
     .attr('width', svgouterWidth);
@@ -131,106 +129,139 @@ let svg = d3.select('div#canvas svg#chart')
           .attr('y1',innerHeight/2-r1)
           .attr('x2',tlength)
           .attr('y2',innerHeight/2+r1);
-      //Grad Circle
-        svg.append("circle")
-          .attr("id", "gradcircle")
-          .attr("cx", tlength -  tlength/3)
-          .attr("cy", innerHeight/2)
-          .attr("r", r2)
-          .attr("fill", "#97252B")
-          .attr("opacity", 0.4);
-        svg.append("text")
-          .text('GRAD')
-          .attr('id', 'gradlabel')
-          .style('fill', 'white')
-          .attr('x', tlength -  tlength/3 - 1.2*r1)
-          .attr('y', innerHeight/2 -r1/2);
+      
+       //Grad Circle
+      svg.append("circle")
+        .attr("id", "gradcircle")
+        .attr("cx", tlength -  tlength/3)
+        .attr("cy", innerHeight/2)
+        .attr("r", r2)
+        .attr("fill", "#97252B")
+        .attr("opacity", 0.4);
+      svg.append("text")
+        .text('GRAD')
+        .attr('id', 'gradlabel')
+        .style('fill', 'white')
+        .attr('x', tlength -  tlength/3 - 1.2*r1)
+        .attr('y', innerHeight/2 -r1/2);
 
-        //dotted lines
-        //bottom
-        svg.append('rect')
-          .attr('class', 'dottedline')
-          .attr('x', tlength -  tlength/3 )
-          .attr('y', innerHeight/2)
-          .attr('width', tlength/3)
-          .attr('height', 2 * r2);
-        //top
-        svg.append('rect')
-          .attr('class', 'dottedline')
-          .attr('x', 0)
-          .attr('y', innerHeight/4)
-          .attr('width', tlength)
-          .attr('height', innerHeight/4);
+      //dotted lines
+      //bottom
+      svg.append('rect')
+        .attr('class', 'dottedline')
+        .attr('x', tlength -  tlength/3 )
+        .attr('y', innerHeight/2)
+        .attr('width', tlength/3)
+        .attr('height', 2 * r2);
+      //top
+      svg.append('rect')
+        .attr('class', 'dottedline')
+        .attr('x', 0)
+        .attr('y', innerHeight/4)
+        .attr('width', tlength)
+        .attr('height', innerHeight/4);
 
-        //text
-        svg.append("text")
-          .text('USCIS Can Receive your application')
-          .attr('class', 'labels')
-          .attr('x', tlength/8)
-          .attr('y', innerHeight/4.5);
-        svg.append("text")
-          .text('OPT Starts')
-          .attr('class', 'labels')
-          .attr('x', tlength-1.8*r2)
-          .attr('y', innerHeight/2 + 3 * r2);
-        svg.append("text")
-          .text('OPT Ends')
-          .attr('class', 'labels')
-          .attr('x', 1.9 * tlength - r2)
-          .attr('y', innerHeight/2 + 3 * r2);
+      //text
+      svg.append("text")
+        .text('USCIS Can Receive your application')
+        .attr('class', 'labels')
+        .attr('x', tlength/8)
+        .attr('y', innerHeight/4.5);
+      svg.append("text")
+        .text('OPT Starts')
+        .attr('class', 'labels')
+        .attr('x', tlength-1.8*r2)
+        .attr('y', innerHeight/2 + 3 * r2);
+      svg.append("text")
+        .text('OPT Ends')
+        .attr('class', 'labels')
+        .attr('x', 1.9 * tlength)
+        .attr('y', innerHeight/2 + 3 * r2);
 
-        //One year OPT
-        svg.append("circle")
-          .attr("class", "endpoints")
-          .attr("cx", tlength - r2) //x posiion plus radius
-          .attr("cy", innerHeight/2 + 2 * r2)
-          .attr("r", r1);
-        //left lil line
-        svg.append("line")
-          .attr("class", "blackline")
-          .attr('x1',tlength - r2)
-          .attr('y1', innerHeight/2 + 2 * r2 - r1)
-          .attr('x2',tlength -r2)
-          .attr('y2', innerHeight/2 + 2 * r2 + r1);
-        // long line
-        svg.append("line")
-          .attr("class", "blackline")
-          .attr('x1', tlength - r2)
-          .attr('y1', innerHeight/2 + 2 * r2)
-          .attr('x2', 2 * tlength - r2)
-          .attr('y2', innerHeight/2 + 2 * r2);
-        // right lil line
-        svg.append("line")
-          .attr("class", "blackline")
-          .attr('x1', 2 * tlength - r2)
-          .attr('y1', innerHeight/2 + 2 * r2 - r1)
-          .attr('x2', 2 * tlength - r2)
-          .attr('y2', innerHeight/2 + 2 * r2 + r1);
-        svg.append("circle")
-          .attr("class", "endpoints")
-          .attr("cx", 2 * tlength - r2) //x posiion plus radius
-          .attr("cy", innerHeight/2 + 2 * r2)
-          .attr("r", r1);
-        // 60 days after OPT
-        // long line
-        svg.append("line")
-          .attr("class", "dottedline")
-          .attr('x1', 2 * tlength - r2)
-          .attr('y1', innerHeight/2 + 2 * r2)
-          .attr('x2', 2.21 * tlength - r2) // 2.21 line length
-          .attr('y2', innerHeight/2 + 2 * r2);
-        // right most lil line
-        svg.append("line")
-          .attr("class", "blackline")
-          .attr('x1', 2.21 * tlength - r2)
-          .attr('y1', innerHeight/2 + 2 * r2 - r1)
-          .attr('x2', 2.21 * tlength - r2) // 2.21 line length
-          .attr('y2', innerHeight/2 + 2 * r2 + r1);
-        svg.append("circle")
-          .attr("class", "endpoints")
-          .attr("cx", 2.21 * tlength - r2) //x posiion plus radius
-          .attr("cy", innerHeight/2 + 2 * r2)
-          .attr("r", r1)
+      //One year OPT
+      //left lil vert line
+      svg.append("circle")
+        .attr("class", "endpoints")
+        .attr("cx", tlength - 1.9 * r2) //x posiion plus radius
+        .attr("cy", innerHeight/2 + 2 * r2)
+        .attr("r", r1);
+      svg.append("line")
+        .attr("class", "blackline")
+        .attr('x1',tlength - 1.9 * r2)
+        .attr('y1', innerHeight/2 + 2 * r2 - r1)
+        .attr('x2',tlength - 1.9 * r2)
+        .attr('y2', innerHeight/2 + 2 * r2 + r1);
+      // long line
+      svg.append("line")
+        .attr("class", "blackline")
+        .attr('x1', tlength - 1.9 * r2)
+        .attr('y1', innerHeight/2 + 2 * r2)
+        .attr('x2', 2 * tlength + 2 * r1)
+        .attr('y2', innerHeight/2 + 2 * r2);
+      // right lil line
+      svg.append("line")
+        .attr("class", "blackline")
+        .attr('x1', 2 * tlength + 2 * r1)
+        .attr('y1', innerHeight/2 + 2 * r2 - r1)
+        .attr('x2', 2 * tlength + 2 * r1)
+        .attr('y2', innerHeight/2 + 2 * r2 + r1);
+      svg.append("circle")
+        .attr("class", "endpoints")
+        .attr("cx", 2 * tlength + 2 * r1) //x posiion plus radius
+        .attr("cy", innerHeight/2 + 2 * r2)
+        .attr("r", r1);
+      // 60 days after OPT
+      // dotted 60 days line
+      svg.append("line")
+        .attr("class", "dottedline")
+        .attr('x1', 2.1 * tlength)
+        .attr('y1', innerHeight/2 + 2 * r2)
+        .attr('x2', 2.1 * tlength + 2 * r2) // 2.21 line length
+        .attr('y2', innerHeight/2 + 2 * r2);
+      // right most lil line
+      svg.append("line")
+        .attr("class", "blackline")
+        .attr('x1', 2.1 * tlength + 2 * r2)
+        .attr('y1', innerHeight/2 + 2 * r2 - r1)
+        .attr('x2', 2.1 * tlength + 2 * r2) // 2.21 line length
+        .attr('y2', innerHeight/2 + 2 * r2 + r1);
+      svg.append("circle")
+        .attr("class", "endpoints")
+        .attr("cx", 2.1 * tlength + 2 * r2) //x posiion plus radius
+        .attr("cy", innerHeight/2 + 2 * r2)
+        .attr("r", r1);
+      
+    let tooltip =  d3.select('div#canvas')
+        .append('div')
+        .attr("class", "tooltip")
+        .style("position", "absolute")
+        .style("visibility", 'hidden');
+      
+      d3.select('g#plot-area')
+        .selectAll('circle')
+        .on('mouseover', function(){return tooltip.style("visibility", "visible");})
+        // .on("mousemove", function(){return tooltip.style("top", (event.pageY)+"px").style("left",(event.pageX)+"px");})
+        .on("mousemove", show_info)
+        .on("mouseleave", function(){return tooltip.style("visibility", "hidden");});
+      
+      d3.select('g#plot-area')
+        .selectAll('.dottedline')
+        .on('mouseover', function(){return tooltip.style("visibility", "visible");})
+        // .on("mousemove", function(){return tooltip.style("top", (event.pageY)+"px").style("left",(event.pageX)+"px");})
+        .on("mousemove", show_info)
+        .on("mouseleave", function(){return tooltip.style("visibility", "hidden");});
+
+    function show_info(d){
+      let mouseLoc = d3.mouse(this)
+      let info = "tootlip"
+        // .html instead of .text() allows us to supply html markup here
+        d3.selectAll('.tooltip, .info')
+        .html(info)
+        .style('visibility', 'visible')
+        // left and top only affect .tooltip b/c position = absolute -- see css
+        .style('left', mouseLoc[0] + margins.left + 'px')
+        .style('top', mouseLoc[1] + 'px')
+    }
 
 
 d3.select('#graduation').on('input', setGracePeriodStart(graduationDate))
