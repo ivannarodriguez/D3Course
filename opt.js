@@ -64,19 +64,19 @@ function setGracePeriodStart (){
 function stemEndDate (str) {
   if (qualifyStem === 'Yes') {
     var date = new Date(str)
-    var stemStartDateTemp = new Date(date.setFullYear(date.getFullYear() + stemOptDuration))
-    var stemStartDate = stemStartDate.toJSON().slice(0,10)
-    return stemStartDate
+    var stemEndDateTemp = new Date(date.setFullYear(date.getFullYear() + stemOptDuration))
+    var stemEndDate = stemEndDateTemp.toJSON().slice(0,10)
+    return stemEndDate
   }
 }
 //let stemEnd = stemEndDate(optEndDate)
 
 // This function will only draw a timeline if a stident qualifies for OPT.
 
-/*function stemDrawLine (str) 
-//  if qualifyStem === 'Yes' 
+/*function stemDrawLine (str)
+//  if qualifyStem === 'Yes'
 //
-//  
+//
 
 */
 
@@ -137,7 +137,7 @@ let svg = d3.select('div#canvas svg#chart')
           .attr('y1',innerHeight/2-r1)
           .attr('x2',tlength)
           .attr('y2',innerHeight/2+r1);
-      
+
        //Grad Circle
       svg.append("circle")
         .attr("id", "gradcircle")
@@ -238,20 +238,20 @@ let svg = d3.select('div#canvas svg#chart')
         .attr("cx", 2.1 * tlength + 2 * r2) //x posiion plus radius
         .attr("cy", innerHeight/2 + 2 * r2)
         .attr("r", r1);
-      
+
     let tooltip =  d3.select('div#canvas')
         .append('div')
         .attr("class", "tooltip")
         .style("position", "absolute")
         .style("visibility", 'hidden');
-      
+
       d3.select('g#plot-area')
         .selectAll('circle')
         .on('mouseover', function(){return tooltip.style("visibility", "visible");})
         // .on("mousemove", function(){return tooltip.style("top", (event.pageY)+"px").style("left",(event.pageX)+"px");})
         .on("mousemove", show_info)
         .on("mouseleave", function(){return tooltip.style("visibility", "hidden");});
-      
+
       d3.select('g#plot-area')
         .selectAll('.dottedline')
         .on('mouseover', function(){return tooltip.style("visibility", "visible");})
@@ -270,5 +270,3 @@ let svg = d3.select('div#canvas svg#chart')
         .style('left', mouseLoc[0] + margins.left + 'px')
         .style('top', mouseLoc[1] + 'px')
     }
-
-
