@@ -44,17 +44,19 @@ function endOPT (str){
 
 //Function that recieves string with grace period end date and sets the max date on the
 // starting date calendar
-function setGracePeriodEnd (str){
-    d3.select('#startingdate')
-    .property('max', str);
+function setGracePeriodEnd (){
+  graduationDate = d3.select('#graduation').property('value')
+  var date = gracePeriodEnd(graduationDate)
+  d3.select('#startingdate')
+  .property('max', date);
 }
 
 //Function that recieves string with graduation date and set min date on the starting date
 //calendar
 function setGracePeriodStart (){
-    graduationDate = d3.select('#graduation').property('value')
-    d3.select('#startingdate')
-    .property('min', graduationDate)
+  graduationDate = d3.select('#graduation').property('value')
+  d3.select('#startingdate')
+  .property('min', graduationDate)
 }
 
 // This function will only work if a student qualifies for OPT. It recieves string with end date
@@ -80,7 +82,7 @@ function stemEndDate (str) {
 
 d3.select('#graduation').on('input', setGracePeriodStart)
 //d3.select('#graduation').on('input', setGracePeriodStart(graduationDate))
-d3.select('#graduation').on('input', setGracePeriodEnd(gracePeriodEnd(graduationDate)))
+d3.select('#graduation').on('input', setGracePeriodEnd)
 
 
 // Margin Convention
@@ -102,10 +104,10 @@ let svg = d3.select('div#canvas svg#chart')
             .attr('width', svgouterWidth)
             .attr('height', svgouterHeight)
             .append('g')
-              .attr('id', "plot-area")
-              .attr('transform', 'translate(' + margins.left + ',' + margins.top + ')');
+            .attr('id', "plot-area")
+            .attr('transform', 'translate(' + margins.left + ',' + margins.top + ')');
       // timeline
-        svg.append("line")
+      svg.append("line")
         .attr("class", "blackline")
         .attr('x1',0)
         .attr('y1',innerHeight/2)
