@@ -231,3 +231,7 @@ let svg = d3.select('div#canvas svg#chart')
           .attr("cx", 2.21 * tlength - r2) //x posiion plus radius
           .attr("cy", innerHeight/2 + 2 * r2)
           .attr("r", r1)
+
+
+d3.select('#graduation').on('input', setGracePeriodStart(graduationDate))
+d3.select('#graduation').on('input', setGracePeriodEnd(gracePeriodEnd(graduationDate)))
