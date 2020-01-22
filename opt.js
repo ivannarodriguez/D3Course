@@ -65,6 +65,7 @@ function stemEndDate (str) {
     var stemStartDate = stemStartDate.toJSON().slice(0,10)
     return stemStartDate
   }
+}
 //let stemEnd = stemEndDate(optEndDate)
 
 // This function will only draw a timeline if a stident qualifies for OPT.
@@ -93,7 +94,7 @@ let dheight
 d3.select('div#dropdowns')
     .attr('width', svgouterWidth);
 //append svg to the body of the page
-let svg = d3.select//}('div#canvas svg#chart')
+let svg = d3.select('div#canvas svg#chart')
             .attr('width', svgouterWidth)
             .attr('height', svgouterHeight)
             .append('g')
@@ -229,4 +230,4 @@ let svg = d3.select//}('div#canvas svg#chart')
           .attr("class", "endpoints")
           .attr("cx", 2.21 * tlength - r2) //x posiion plus radius
           .attr("cy", innerHeight/2 + 2 * r2)
-          .attr("r", r1)}
+          .attr("r", r1)
