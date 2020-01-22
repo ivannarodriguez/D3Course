@@ -237,7 +237,7 @@ let svg = d3.select('div#canvas svg#chart')
         .attr("class", "tooltip")
         .style("position", "absolute")
         .style("z-index", "10")
-        .attr("background-color", 'red')
+        .style("background-color", 'red')
         .style("visibility", 'hidden')
         .text('a simple tooltip');
       
