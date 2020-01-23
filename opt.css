@@ -10,7 +10,7 @@ label{
 .labels{
   font-family: 'Fjalla One', sans-serif;
   background-color: black;
-  opacity: 1;
+  font-size: medium;
 }
 
 p{
@@ -29,16 +29,11 @@ text#gradlabel{
 
 div#dropdowns{
   position: relative;
+  /* border: 15px rebeccapurple; */
+  /* background-color: red; */
   width: 800px; 
 }
 
-div#canvas {
-  /* border-radius: 0px; */
-  border: 50px green;
-  position: relative; left: 0px; 
-  width: 1200px;
-  height: 600px;
-}
 
 /*could these widths be done in js so theyre variable?*/
 span#STEM {
@@ -62,6 +57,21 @@ span {
   stroke-width: 5;
 }
 
+.tooltip{
+  font-size: small;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  background-color: black;
+  color: white;
+  opacity: 0.7;
+  width:200px;
+  left: 380px;
+  top: 420px;
+  padding-top: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+}
+
 .dottedline{
   stroke: black;
   opacity: 0.5;
@@ -70,24 +80,16 @@ span {
   fill: none;
 }
 
-.endpoints{
+
+.grad{
+  fill: #97252B;
+  opacity: 0.5;
+}
+
+.endpoint{
   fill : black;
   opacity: 0.3;
 }
 
-.tooltip {
-  position: absolute;
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-size: small;
-  border-width: 2px;
-  padding: '5px';
-  background-color: black;
-  opacity: 0.7;
-  color: white;
-}
 
-.info {
-  position: static;
-  border: 2px solid skyblue;
-  border-radius: 8px;
-}
+
