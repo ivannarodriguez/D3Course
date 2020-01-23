@@ -69,6 +69,7 @@ function stemEndDate (str) {
     return stemEndDate
   }
 }
+
 //let stemEnd = stemEndDate(optEndDate)
 
 // This function will only draw a timeline if a stident qualifies for OPT.
@@ -91,7 +92,7 @@ d3.select('#graduation').on('input', setGracePeriodEnd)
 
 // Margin Convention
 let margins = { top: 20, right: 25, bottom: 30, left: 40 }
-let svgouterWidth = 800
+let svgouterWidth = 1000
 let svgouterHeight = 500
 let innerWidth = svgouterWidth - margins.left - margins.right
 let innerHeight = svgouterHeight - margins.top - margins.bottom
@@ -274,3 +275,31 @@ let svg = d3.select('div#canvas svg#chart')
         .style('left', mouseLoc[0] + margins.left + 'px')
         .style('top', mouseLoc[1] + 'px')
     }
+
+let marginsStem = { top: 200, right: 25, bottom: 30, left: 700}
+let innerWidthStem = svgouterWidth - marginsStem.left - marginsStem.right
+let innerHeightStem = svgouterHeight - marginsStem.top - marginsStem.bottom
+
+
+let tlengthStem = innerWidthStem/2.6
+
+let stemSvg = d3.select('div#canvas')
+                .append('svg')
+                .attr('width', 1200)
+                .attr('height',500)
+                .append('g')
+                .attr('id', 'stemPlotArea')
+                .attr('transform', 'translate(' + marginsStem.left + ',' + marginsStem.top + ')')
+            // stem start date circle
+            stemSvg.append('circle')
+                  .attr('class', 'endpoints')
+                  .attr("cx", 0)
+                  .attr("cy", 0)
+                  .attr('r', r1)
+          //stem lines
+          stemSvg.append('line')
+                .attr('class', 'blackline')
+                .attr('x1', 0)
+                .attr('y1', 0)
+                .attr('x2', tlength)
+                .attr('y2', 0)
