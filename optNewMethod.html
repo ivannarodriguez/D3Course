@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!--link css -->
+    <link rel="stylesheet" href="optNewMethod.css" />
+    <!--to use D3-->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <title>OPT Timeline</title>
+    <!--fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Fjalla+One&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <h1>Optional Practical Training (OPT) Timeline</h1>
+    <p>The following visualization is a timeline of the OPT application process.
+      Your graduation date refers to the day of your last class as a Calvin student.
+      Your desired start date refers to your requested start date of work.
+      If your major qualifies as a Science, Technology, Engineering or Mathematics (STEM)
+      major, select yes.
+    </p>
+    <div id = "dropdowns">
+      <span id = "grad">
+        <label for="Graduation">Program End Date: </label>
+        <input id = 'graduation'type="date">
+      </span>
+      <span id ="start">
+          <label for="Start">Desired Job Start Date: </label>
+          <input id = 'startingdate'type="date">
+      </span>
+      <span id="extension-dropdown">
+          <label for="STEM">Do you qualify for STEM extension?</label>
+          <select id='stemExtension'>
+            <option value="No">No</option>
+            <option value="Yes">Yes</option>
+          </select>
+        </span>
+    </div>
+
+    <!-- div where the graph will take place -->
+   <div id="canvas">
+     <svg id="chart" >
+     </svg>
+   </div>
+    <!--link js file-->
+  <script src="optNewMethod.js"></script>
+  </body>
+</html>
