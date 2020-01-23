@@ -10,7 +10,7 @@ label{
 .labels{
   font-family: 'Fjalla One', sans-serif;
   background-color: black;
-  opacity: 1;
+  font-size: medium;
 }
 
 p{
@@ -70,6 +70,13 @@ span {
   background-color: black;
   color: white;
   opacity: 0.7;
+  width:200px;
+  left: 380px;
+  top: 150px;
+  padding-top: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
 }
 
 .dottedline{
@@ -84,3 +91,9 @@ span {
   fill : black;
   opacity: 0.3;
 }
+
+circle#ninetydays:hover, line#optline:hover, rect#tp:hover{
+  fill: #97252B;
+  stroke: #97252B;
+}
+
