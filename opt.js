@@ -90,19 +90,21 @@ d3.select('#graduation').on('input', setGracePeriodEnd)
 * S T A R T S  H E R E
 */
 
-let circledata = [{ x: 0, y: 300, r: 15, group: 'endpoint', html: ''}, //-90
-                { x: 300, y: 300, r: 30, group: 'grad', html: ''},      //grad
-                { x: 500, y: 300, r: 15, group: 'endpoint', html: ''},  //60
-                { x: 1300, y: 600, r: 15, group: 'endpoint', html: ''}, //optend
-                { x: 1400, y: 600, r: 15, group: 'endpoint', html: ''}, //opt60
-                { x: 1000, y: 900, r: 15, group: 'endpoint', html: ''}, //stemstartapplying
-                { x: 1300, y: 900, r: 15, group: 'endpoint', html: ''},] //stemstart
+let circledata = [{ x: 0, y: 300, r: 15, group: 'endpoint', html: 'test1', hover: true}, //-90
+                { x: 300, y: 300, r: 25, group: 'grad', html: 'test2'},      //grad
+                { x: 500, y: 300, r: 15, group: 'endpoint', html: 'test3'},  //60
+                { x: 1000, y: 600, r: 15, group: 'endpoint', html: 'test4'}, //optend
+                { x: 1200, y: 600, r: 15, group: 'endpoint', html: ''}, //opt60
+                { x: 900, y: 900, r: 15, group: 'endpoint', html: ''}, //stemstartapplying
+                { x: 1200, y: 900, r: 15, group: 'endpoint', html: ''},] //stemstart
+
+let linedata = [{x1: circledata[0].x, x2: circledata[2].x, y1:circledata[0].y, y2:circledata[0].y, group: 'blackline'}]
 
 
 //adding a margin to the svg
-let margin = {top: 5, bottom: 5, left: 50, right: 20 };
-let svgWidth = 1000;
-let svgHeight = 1000;
+let margin = { top: 20, right: 25, bottom: 30, left: 40 };
+let svgWidth = 800;
+let svgHeight = 500;
 let width = svgWidth - margin.left - margin.right;
 let height = svgHeight - margin.top - margin.bottom;
 
@@ -125,16 +127,50 @@ let yScale = d3.scaleLinear()
   .domain(d3.extent(circledata.map(d => d.y)))
   .range([10, 250]); //backwards because 0,0 is at top left corner
 
+let lines = canvas.selectAll('line')
+  .data(linedata)
+    .enter()
+    .append('line')
+      .attr('x1', d => xScale(d.x1))
+      .attr('x2', d=> xScale(d.x2))
+      .attr('y1', d => yScale(d.y1))
+      .attr('y2', d=> yScale(d.y2))
+      .attr('class', d=> d.group);
 
 let circles = canvas.selectAll('circle')
-                    .data(circledata)
-                      .enter()
-                      .append('circle')
-                        .attr('cx', d => xScale(d.x))
-                        .attr('cy', d=> yScale(d.y))
-                        .attr('r', d=> d.r)
-                        .attr('class', d=> d.group)
-                        .style('fill', 'black');
+    .data(circledata)
+      .enter()
+      .append('circle')
+        .attr('cx', d => xScale(d.x))
+        .attr('cy', d=> yScale(d.y))
+        .attr('r', d=> d.r)
+        .attr('class', d=> d.group)
+        .on('mouseover', showinfo)
+        .on('mouseleave', hideinfo);
+
+let tooltip =  d3.select('div#canvas')
+      .append('div')
+      .attr("class", "tooltip")
+      .style("position", "absolute")
+      .style("visibility", 'hidden');
+        
+function showinfo(d,i){
+  d3.select('.tooltip')
+    .style("visibility", "visible")
+    .html(d.html)
+  // return function hover(d,i){
+  //   d3.select(this)
+  //     .style('fill', 'red')
+  //     .style('opacity', 0.4)
+  // }
+}
+
+function hideinfo(d,i){
+  d3.select('.tooltip')
+  .style("visibility", "hidden")
+}
+
+
 
 
 
