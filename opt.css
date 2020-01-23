@@ -87,7 +87,7 @@ span {
   fill: none;
 }
 
-.endpoints{
+.endpoint{
   fill : black;
   opacity: 0.3;
 }
@@ -95,5 +95,10 @@ span {
 circle#ninetydays:hover, line#optline:hover, rect#tp:hover{
   fill: #97252B;
   stroke: #97252B;
+}
+
+.grad{
+  fill: #97252B;
+  opacity: 0.7;
 }
 
