@@ -81,7 +81,6 @@ function stemEndDate (str) {
 */
 
 d3.select('#graduation').on('input', setGracePeriodStart)
-//d3.select('#graduation').on('input', setGracePeriodStart(graduationDate))
 d3.select('#graduation').on('input', setGracePeriodEnd)
 
 /*
@@ -335,13 +334,25 @@ let svg = d3.select('div#canvas svg#chart')
 
 
 
-var importantDates = {
-  graduationDate = getGraduationDate(),
-  gracePeriodEndDate = getGraceEndPeriodDate(),
-  earliestApplicationDate = getEarliestApplicationDate(),
-  optEndDate = getOptEndDate(),
+//var importantDates = 
+  //graduationDate : getGraduationDate(),
+  //gracePeriodEndDate : getGraceEndPeriodDate(),
+  //earliestApplicationDate : getEarliestApplicationDate(),
+  //optEndDate : getOptEndDate(),
 
-}
+
+function importantDates(gradDate, startDate){
+  let newGradDate = new Date(gradDate)
+  let formatGradDate = newGradDate.toUTCString().slice(0,16)
+  let newStartDate = new Date(startDate)
+  let formatStartDate = newStartDate.toUTCString().slice(0,16)
+  return{
+  graduationDate : formatGradDate,
+  gracePeriodEnd : getGraceEndPeriodDate(),
+  startingDate : formatStartDate,
+  earliestApplicationDate : getEarliestApplicationDate(),
+  optEndDate : getOptEndDate(),
+}}
 
 
 function getGraduationDate (){
@@ -365,8 +376,18 @@ function getEarliestApplicationDate() {
 }
 
 function getOptEndDate (){
-  let startDate = d3.select('#startdate').property('value')
+  let startDate = d3.select('#startingdate').property('value')
   let date = new Date (endOPT(startDate))
   let newDate = date.toUTCString().slice(0,16)
   return newDate
 }
+
+function showImportantDates (){
+  // return importantDates(d3.select('#graduation').property('value'),
+  // d3.select('#startingdate').property('value'))
+  console.log(importantDates(d3.select('#graduation').property('value'),
+  d3.select('#startingdate').property('value')))
+}
+
+
+d3.select('#showdates').on('click', showImportantDates)
