@@ -1,277 +1,115 @@
-// const graceDays = 60 //60 days
-// const earliestApplication = -90 //-90 days
-// const optDuration = 1 // 1 year
-// const stemOptDuration = 2 //2 years
-
-// let graduationDate = d3.select('#graduation').property('value')
-
-// let startingdate = d3.select('#startingdate').property('value')
-
-// // let qualifyStem = d3.select('#stemExtension').property('value')
-
-// // Function that recieves graduation date and calculates the date of the 60 day grace
-// //period after graduation
-// //Recieves string in format year-month-day and returns string in same format
-// function gracePeriodEnd (str){
-//     var date = new Date(str);
-//     var newDate = new Date(date.setDate(date.getDate() + graceDays));
-//     var finalNewDate = newDate.toJSON().slice(0,10);
-//     return finalNewDate;
-// }
-
-
-// // Function that recieves graduation date and calculates the date of the earliest
-// // possible application day
-// //Recieves string in format year-month-day and returns string in same format
-// function earlyApplicationDate (str){
-//     var date = new Date (str);
-//     var newDate = new Date(date.setDate(date.getDate()+ earliestApplication));
-//     var finalNewDate = newDate.toJSON().slice(0,10);
-//     return finalNewDate;
-// }
-
-
-// // Function that recieves starting date and calculates the end date of OPT
-// ////Recieves string in format year-month-day and returns string in same format
-// function endOPT (str){
-//     var date = new Date(str);
-//     var dateTemp = new Date(date.setFullYear(date.getFullYear()+ optDuration))
-//     var endDate = dateTemp.toJSON().slice(0,10);
-//     return endDate;
-// }
-
-// let optEndDate = endOPT(startingdate)
-
-// //Function that recieves string with grace period end date and sets the max date on the
-// // starting date calendar
-// function setGracePeriodEnd (str){
-//     d3.select('#startingdate')
-//     .property('max', str);
-// }
-
-// //Function that recieves string with graduation date and set min date on the starting date
-// //calendar
-// function setGracePeriodStart (str){
-//     d3.select('#startingdate')
-//     .property('min', str)
-// }
-
-// This function will only work if a student qualifies for OPT. It recieves string with end date
-// adds 2 years to the end date
-// function stemEndDate (str) {
-//   if (qualifyStem === 'Yes') {
-//     var date = new Date(str)
-//     var stemStartDateTemp = new Date(date.setFullYear(date.getFullYear() + stemOptDuration))
-//     var stemStartDate = stemStartDate.toJSON().slice(0,10)
-//     return stemStartDate
-//   }
-//   }
-// let stemEnd = stemEndDate(optEndDate)
-
-// This function will only draw a timeline if a stident qualifies for OPT.
-
-/*function stemDrawLine (str) {
-//  if qualifyStem === 'Yes' {
-//
-//  }
-}
+/*
+*
+* G R A P H I C  
+* S T A R T S  H E R E
+*
 */
 
-// Margin Convention
-let margins = { top: 20, right: 25, bottom: 30, left: 40 }
-let svgouterWidth = 800
-let svgouterHeight = 500
-let innerWidth = svgouterWidth - margins.left - margins.right
-let innerHeight = svgouterHeight - margins.top - margins.bottom
-//-90 + 60 timeline length
-let tlength = innerWidth/2.6
-//radius sizes
-let r1 = 15
-let r2 = 45
+let circledata = [{ x: 0, y: 300, r: 15, group: 'endpoint', html: "Take about a week before this date to collect your documents so you can mail them to USCIS <strong>on this date.</strong> Prime time for USCIS to receive your application is between now and your program end date."}, //-90
+                { x: 300, y: 300, r: 30, group: 'grad', html: "This is your program end date. Congrats! You're done with school.", label:'GRAD'},      //grad
+                { x: 500, y: 300, r: 15, group: 'endpoint', html: 'If you did not apply for OPT, or graduate school, you must leave the country by this date.'},  //60
+                { x: 1000, y: 600, r: 15, group: 'endpoint', html: 'You must terminate all employment by this date (refer to your EAD card), and you will have 60 grace days to leave the country.'}, //optend
+                { x: 1200, y: 600, r: 15, group: 'endpoint', html: 'You <strong>must</strong> be out of the country by this date.'}, //opt60
+                { x: 900, y: 900, r: 15, group: 'endpoint', html: ''}, //stemstartapplying
+                { x: 1200, y: 900, r: 15, group: 'endpoint', html: ''},] //stemstart
 
-d3.select('div#dropdowns')
-    .attr('width', svgouterWidth);
-//append svg to the body of the page
-let svg = d3.select('div#canvas svg#chart')
-            .attr('width', svgouterWidth)
-            .attr('height', svgouterHeight)
-            .append('g')
-              .attr('id', "plot-area")
-              .attr('transform', 'translate(' + margins.left + ',' + margins.top + ')');
-      // USCIS can receive your app section
-      // horizontal line
-      svg.append("line")
-        .attr("class", "blackline")
-        .attr('x1',0)
-        .attr('y1',innerHeight/2)
-        .attr('x2',tlength)
-        .attr('y2',innerHeight/2);
-      //-90 days (leftmost circle)
-      svg.append("circle")
-        .attr("class", "endpoints")
-        .attr("cx", 0)
-        .attr("cy", innerHeight/2)
-        .attr("r", r1);
-      svg.append("line")
-        .attr("class", "blackline")
-        .attr('x1',0)
-        .attr('y1',innerHeight/2-r1)
-        .attr('x2',0)
-        .attr('y2',innerHeight/2+r1);
-      //+60 days  (rightmost circle)
-      svg.append("circle")
-        .attr("class", "endpoints")
-        .attr("cx", tlength) //x posiion plus radius
-        .attr("cy", innerHeight/2)
-        .attr("r", r1);
-      svg.append("line")
-          .attr("class", "blackline")
-          .attr('x1',tlength)
-          .attr('y1',innerHeight/2-r1)
-          .attr('x2',tlength)
-          .attr('y2',innerHeight/2+r1);
-      
-       //Grad Circle
-      svg.append("circle")
-        .attr("id", "gradcircle")
-        .attr("cx", tlength -  tlength/3)
-        .attr("cy", innerHeight/2)
-        .attr("r", r2)
-        .attr("fill", "#97252B")
-        .attr("opacity", 0.4);
-      svg.append("text")
-        .text('GRAD')
-        .attr('id', 'gradlabel')
-        .style('fill', 'white')
-        .attr('x', tlength -  tlength/3 - 1.2*r1)
-        .attr('y', innerHeight/2 -r1/2);
+let linedata = [{x1: circledata[0].x, x2: circledata[2].x, y1:circledata[0].y, y2:circledata[0].y, group: 'blackline', html:''},
+                {x1: circledata[2].x, x2: circledata[3].x, y1:circledata[3].y, y2:circledata[3].y, group: 'blackline', html:'During this time, you can: <br/> 1. Work <br/> 2. Transfer SEVIS record for grad school.'},
+                {x1: circledata[3].x, x2: circledata[4].x, y1:circledata[3].y, y2:circledata[3].y, group: 'dottedline', html:''},
+                {x1: circledata[1].x, x2: circledata[1].x, y1:circledata[0].y, y2:circledata[3].y, group: 'dottedline', html:''},
+                {x1: 0, x2: 0, y1:270, y2:330, group: 'blackline', html:''},
+                {x1: 500, x2: 500, y1:270, y2:330, group: 'blackline', html:''},
+                {x1: 300, x2: 300, y1:570, y2:630, group: 'blackline', html:''},
+                {x1: 500, x2: 500, y1:570, y2:630, group: 'blackline', html:''},
+                {x1: 1000, x2: 1000, y1:570, y2:630, group: 'blackline', html:''},
+                {x1: 1200, x2: 1200, y1:570, y2:630, group: 'blackline', html:''},
+              ]
 
-      //dotted lines
-      //bottom
-      svg.append('rect')
-        .attr('class', 'dottedline')
-        .attr('x', tlength -  tlength/3 )
-        .attr('y', innerHeight/2)
-        .attr('width', tlength/3)
-        .attr('height', 2 * r2);
-      //top
-      svg.append('rect')
-        .attr('class', 'dottedline')
-        .attr('x', 0)
-        .attr('y', innerHeight/4)
-        .attr('width', tlength)
-        .attr('height', innerHeight/4);
+let rectdata = [{x: circledata[0].x, y: 0, width: 500, height:300, html:'', group:'dottedline'},
+                {x: circledata[1].x, y:585, width:200, height:30, html:'You can request any start date that is within 60 days from your program end date (graduation). You can only start working once you have your EAD card in hand, and on or after the start date your EAD card specifies.', group:'endpoint'}
+              ]
 
-      //text
-      svg.append("text")
-        .text('USCIS Can Receive your application')
-        .attr('class', 'labels')
-        .attr('x', tlength/8)
-        .attr('y', innerHeight/4.5);
-      svg.append("text")
-        .text('OPT Starts')
-        .attr('class', 'labels')
-        .attr('x', tlength-1.80*r2)
-        .attr('y', innerHeight/2 + 2.8 * r2);
-      svg.append("text")
-        .text('OPT Ends')
-        .attr('class', 'labels')
-        .attr('x', 2 * tlength)
-        .attr('y', innerHeight/2 + 2.8 * r2);
-      svg.append("text")
-        .text('+60 days')
-        .attr('class', 'labels')
-        .attr('x', 2.15 * tlength)
-        .attr('y', innerHeight/2 + 1.75 * r2);
+//adding a margin to the svg
+let margin = { top: 200, right: 25, bottom: 30, left: 40 };
+let svgWidth = 800;
+let svgHeight = 500;
+let width = svgWidth - margin.left - margin.right;
+let height = svgHeight - margin.top - margin.bottom;
 
-      //One year OPT
-      // left lil vert line
-      // awk opt start rectangle
-      svg.append('rect')
-        .style('fill', 'black')
-        .style('opacity', '0.3')
-        .attr('x', tlength -  tlength/3)
-        .attr('y', innerHeight/2 + 1.85 * r2)
-        .attr('width', tlength/3)
-        .attr('height', r1);
-      svg.append("line")
-        .attr("class", "blackline")
-        .attr('x1',tlength -  tlength/3)
-        .attr('y1', innerHeight/2 + 2 * r2 - r1)
-        .attr('x2',tlength -  tlength/3)
-        .attr('y2', innerHeight/2 + 2 * r2 + r1);
-      svg.append("line")
-        .attr("class", "blackline")
-        .attr('x1',tlength)
-        .attr('y1', innerHeight/2 + 2 * r2 - r1)
-        .attr('x2',tlength)
-        .attr('y2', innerHeight/2 + 2 * r2 + r1);
-      // long line
-      svg.append("line")
-        .attr("class", "blackline")
-        .attr('x1', tlength)
-        .attr('y1', innerHeight/2 + 2 * r2)
-        .attr('x2', 2 * tlength + 2 * r1)
-        .attr('y2', innerHeight/2 + 2 * r2);
-      // right lil line
-      svg.append("line")
-        .attr("class", "blackline")
-        .attr('x1', 2 * tlength + 2 * r1)
-        .attr('y1', innerHeight/2 + 2 * r2 - r1)
-        .attr('x2', 2 * tlength + 2 * r1)
-        .attr('y2', innerHeight/2 + 2 * r2 + r1);
-      svg.append("circle")
-        .attr("class", "endpoints")
-        .attr("cx", 2 * tlength + 2 * r1) //x posiion plus radius
-        .attr("cy", innerHeight/2 + 2 * r2)
-        .attr("r", r1);
-      // 60 days after OPT
-      // dotted 60 days line
-      svg.append("line")
-        .attr("class", "dottedline")
-        .attr('x1', 2.1 * tlength)
-        .attr('y1', innerHeight/2 + 2 * r2)
-        .attr('x2', 2.1 * tlength + 2 * r2) // 2.21 line length
-        .attr('y2', innerHeight/2 + 2 * r2);
-      // right most lil line
-      svg.append("line")
-        .attr("class", "blackline")
-        .attr('x1', 2.1 * tlength + 2 * r2)
-        .attr('y1', innerHeight/2 + 2 * r2 - r1)
-        .attr('x2', 2.1 * tlength + 2 * r2) // 2.21 line length
-        .attr('y2', innerHeight/2 + 2 * r2 + r1);
-      svg.append("circle")
-        .attr("class", "endpoints")
-        .attr("cx", 2.1 * tlength + 2 * r2) //x posiion plus radius
-        .attr("cy", innerHeight/2 + 2 * r2)
-        .attr("r", r1);
-      
-    let tooltip =  d3.select('div#canvas')
-        .append('div')
-        .attr("class", "tooltip")
-        .style("position", "absolute")
-        .style("visibility", 'hidden');
-      
-      d3.select('g#plot-area')
-        .selectAll('circle')
-        .on('mouseover', function(){return tooltip.style("visibility", "visible");})
-        .on("mousemove", show_info)
-        .on("mouseleave", function(){return tooltip.style("visibility", "hidden");});
-      
-      d3.select('g#plot-area')
-        .selectAll('.dottedline')
-        .on('mouseover', function(){return tooltip.style("visibility", "visible");})
-        .on("mousemove", show_info)
-        .on("mouseleave", function(){return tooltip.style("visibility", "hidden");});
+// create svg for scatterplot to b at
+let canvas = d3.select("body")
+                .append("svg")
+                .attr("width", svgWidth)
+                .attr("height", svgHeight)
+                // .style('background-color', 'yellow')
+                .append("g")
+                  .attr('transform', "translate(" + margin.left + "," + margin.top + ")");
 
-    function show_info(d){
-      let mouseLoc = d3.mouse(this)
-      let info = "tootlip"
-        // .html instead of .text() allows us to supply html markup here
-        d3.selectAll('.tooltip, .info')
-        .html(info)
-        .style('visibility', 'visible')
-        // left and top only affect .tooltip b/c position = absolute -- see css
-        .style('left', mouseLoc[0] + margins.left + 'px')
-        .style('top', mouseLoc[1] + 'px')
-    }
+//horizontal scale
+let xScale = d3.scaleLinear()
+  .domain(d3.extent(circledata.map(d => d.x)))
+  .range([10,600])
+
+//vertical scale
+let yScale = d3.scaleLinear()
+  .domain(d3.extent(circledata.map(d => d.y)))
+  .range([10, 250]); //backwards because 0,0 is at top left corner
+
+let lines = canvas.selectAll('line')
+  .data(linedata)
+    .enter()
+    .append('line')
+      .attr('x1', d => xScale(d.x1))
+      .attr('x2', d=> xScale(d.x2))
+      .attr('y1', d => yScale(d.y1))
+      .attr('y2', d=> yScale(d.y2))
+      .attr('class', d=> d.group)
+      .on('mouseover', showinfo)
+      .on('mouseleave', hideinfo);
+
+let circles = canvas.selectAll('circle')
+    .data(circledata)
+      .enter()
+      .append('circle')
+        .attr('cx', d => xScale(d.x))
+        .attr('cy', d=> yScale(d.y))
+        .attr('r', d=> d.r)
+        .attr('class', d=> d.group)
+        .on('mouseover', showinfo)
+        .on('mouseleave', hideinfo);
+
+let rects = canvas.selectAll('rect')
+  .data(rectdata)
+  .enter()
+  .append('rect')
+    .attr('x', d => xScale(d.x))
+    .attr('y', d=> yScale(d.y))
+    .attr('width', d=> xScale(d.x+d.width)-xScale(d.x))
+    .attr('height', d=> yScale(d.y+d.height)-yScale(d.y))
+    .attr('class', d=> d.group)
+    .on('mouseover', showinfo)
+    .on('mouseleave', hideinfo);
+
+let tooltip =  d3.select('body')
+      .append('div')
+      .attr("class", "tooltip")
+      .style("position", "absolute")
+      .style("visibility", 'hidden');
+        
+function showinfo(d,i){
+  d3.select('.tooltip')
+    .style("visibility", "visible")
+    .html(d.html)
+    .style('visibility', d.html.length===0?'hidden':'visible') //only show tooltip when text is available
+  d3.select(this)
+    .style('fill', d.html.length===0?undefined:'maroon') //only change color when text is available
+    .style('stroke', d.html.length===0?undefined:'maroon') //only change color when text is available
+}
+
+function hideinfo(d,i){
+  d3.select('.tooltip')
+  .style("visibility", "hidden")
+  d3.select(this)
+    .style('fill', undefined)
+    .style('stroke', undefined)
+}
