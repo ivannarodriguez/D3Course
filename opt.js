@@ -42,21 +42,14 @@ function endOPT (str){
 
 //let optEndDate = endOPT(startingdate)
 
-//Function that recieves string with grace period end date and sets the max date on the
-// starting date calendar
-function setGracePeriodEnd (){
+
+//Function that sets min date and max date on the starting date calendar
+function setGracePeriodStartPlusEnd (){
   graduationDate = d3.select('#graduation').property('value')
   var date = gracePeriodEnd(graduationDate)
   d3.select('#startingdate')
-  .property('max', date);
-}
-
-//Function that recieves string with graduation date and set min date on the starting date
-//calendar
-function setGracePeriodStart (){
-  graduationDate = d3.select('#graduation').property('value')
-  d3.select('#startingdate')
   .property('min', graduationDate)
+  .property('max', date)
 }
 
 // This function will only work if a student qualifies for OPT. It recieves string with end date
@@ -80,8 +73,7 @@ function stemEndDate (str) {
 
 */
 
-d3.select('#graduation').on('input', setGracePeriodStart)
-d3.select('#graduation').on('input', setGracePeriodEnd)
+d3.select('#graduation').on('input', setGracePeriodStartPlusEnd)
 
 /*
 *
