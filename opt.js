@@ -276,30 +276,48 @@ let svg = d3.select('div#canvas svg#chart')
         .style('top', mouseLoc[1] + 'px')
     }
 
-let marginsStem = { top: 200, right: 25, bottom: 30, left: 700}
-let innerWidthStem = svgouterWidth - marginsStem.left - marginsStem.right
-let innerHeightStem = svgouterHeight - marginsStem.top - marginsStem.bottom
+function drawStemExtension() {
+  let marginsStem = { top: 20, right: 25, bottom: 30, left: 40 }
+  let svgouterWidth = 800
+  let svgouterHeight = 400
+  let innerWidth = svgouterWidth - margins.left - margins.right
+  let innerHeight = svgouterHeight - margins.top - margins.bottom
+  let stemLen = innerWidth/2.6 // stem timeline length
+  let r1 = 15 // radius
 
-
-let tlengthStem = innerWidthStem/2.6
-
-let stemSvg = d3.select('div#canvas')
-                .append('svg')
-                .attr('width', 1200)
-                .attr('height',500)
+  if (QualifyStem === 'Yes') {
+    let svgStem = d3.select('div#canvas svg#stemChart')
+                .attr('width', svgouterWidth)
+                .attr('height', svgouterHeight)
                 .append('g')
                 .attr('id', 'stemPlotArea')
-                .attr('transform', 'translate(' + marginsStem.left + ',' + marginsStem.top + ')')
-            // stem start date circle
-            stemSvg.append('circle')
-                  .attr('class', 'endpoints')
-                  .attr("cx", 0)
-                  .attr("cy", 0)
-                  .attr('r', r1)
-          //stem lines
-          stemSvg.append('line')
-                .attr('class', 'blackline')
-                .attr('x1', 0)
-                .attr('y1', 0)
-                .attr('x2', tlength)
-                .attr('y2', 0)
+                .attr('transform', 'translate(' + margins.left + ',' + margins.top + ')');
+
+      svgStem.append('line')
+        .attr('class', 'blackline')
+        .attr('x1', 0)
+        .attr('y1', innerHeight/2)
+        .attr('x2', stemLen)
+        .attr
+      // -90 days circle -- apply for stem opt
+      svgStem.append('circle')
+      .attr('class', 'endpoint')
+      .attr('cx', 0)
+      .attr('cy', innerHeight/2)
+      .attr('r', r1)
+      //vertical tick
+      svgStem.append('line')
+      .attr('class', 'blackline')
+      .attr('x1', 0)
+      .attr('y1', innerHeight/2-r1)
+      .attr('x2', 0)
+      .attr('y2', innerHeight/2+r1)
+      //stem start date circle
+      svgStem.append('circle')
+      .attr('class', 'endpoint')
+      .attr('cx', tlength - tlength/4) // random -- should change later
+      .attr('cy', innerHeight/2)
+      .attr('r', r1)
+
+  }
+}
