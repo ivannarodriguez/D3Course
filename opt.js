@@ -90,7 +90,7 @@ d3.select('#graduation').on('input', setGracePeriodEnd)
 * S T A R T S  H E R E
 */
 
-let circledata = [{ x: 0, y: 300, r: 15, group: 'endpoint', html: 'test1', hover: true}, //-90
+let circledata = [{ x: 0, y: 300, r: 15, group: 'endpoint', html: 'test1'}, //-90
                 { x: 300, y: 300, r: 25, group: 'grad', html: 'test2'},      //grad
                 { x: 500, y: 300, r: 15, group: 'endpoint', html: 'test3'},  //60
                 { x: 1000, y: 600, r: 15, group: 'endpoint', html: 'test4'}, //optend
@@ -98,7 +98,10 @@ let circledata = [{ x: 0, y: 300, r: 15, group: 'endpoint', html: 'test1', hover
                 { x: 900, y: 900, r: 15, group: 'endpoint', html: ''}, //stemstartapplying
                 { x: 1200, y: 900, r: 15, group: 'endpoint', html: ''},] //stemstart
 
-let linedata = [{x1: circledata[0].x, x2: circledata[2].x, y1:circledata[0].y, y2:circledata[0].y, group: 'blackline'}]
+let linedata = [{x1: circledata[0].x, x2: circledata[2].x, y1:circledata[0].y, y2:circledata[0].y, group: 'blackline'},
+                {x1: circledata[2].x, x2: circledata[3].x, y1:circledata[3].y, y2:circledata[3].y, group: 'blackline'}]
+
+// let rectdata = [{x:, y:, width:, height:, html:'', group:'dottedline'}]
 
 
 //adding a margin to the svg
