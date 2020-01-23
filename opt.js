@@ -144,7 +144,7 @@ let svg = d3.select('div#canvas svg#chart')
         .attr('y2',innerHeight/2+r1);
     
      //Graduation label
-     svg.append("circle")
+    svg.append("circle")
      .attr("id", "gradcircle")
      .attr("cx", tlength -  tlength/3)
      .attr("cy", innerHeight/2)
@@ -311,26 +311,6 @@ let svg = d3.select('div#canvas svg#chart')
           .html("During this time, you can: </br> 1. Work <br/> 2. Transfer SEVIS record for grad school");})
       .on("mouseleave", function(){return tooltip.style("visibility", "hidden");});
 
-// function show(){
-// let mouseLoc = d3.mouse(this)
-// d3.select('.tooltip')
-//   .html("During this time, you can: </br> 1. Work <br/> 2. Transfer SEVIS record for grad school")
-//   .style('visibility', 'visible')
-//   .style('left', mouseLoc[0] + margins.left + 'px')
-//   .style('top', mouseLoc[1] + 'px')
-// }
 
-// function show1(){
-//   let mouseLoc = d3.mouse(this)
-//   d3.select('.tooltip')
-//     .html("Take about a week before this date <br/>"+
-//           "to collect your documents so you can <br/>"+
-//           "mail them to USCIS <strong>on this date.</strong><br/>"+
-//           "Prime time for USCIS to receive your application <br/>"+
-//           "is between now and graduation.")
-//     .style('visibility', 'visible')
-//     .style('left', mouseLoc[0] + margins.left + 'px')
-//     .style('top', mouseLoc[1] + 'px')
-//   }
 
 
