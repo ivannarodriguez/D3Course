@@ -3,9 +3,9 @@ const earliestApplication = -90 //-90 days
 const optDuration = 1 // 1 year
 const stemOptDuration = 2 //2 years
 
-let graduationDate = d3.select('#graduation').property('value')
+//let graduationDate = d3.select('#graduation').property('value')
 
-let startingdate = d3.select('#startingdate').property('value')
+//let startingdate = d3.select('#startingdate').property('value')
 
 let qualifyStem = d3.select('#stemExtension').property('value')
 
@@ -334,3 +334,39 @@ let svg = d3.select('div#canvas svg#chart')
 //   }
 
 
+
+var importantDates = {
+  graduationDate = getGraduationDate(),
+  gracePeriodEndDate = getGraceEndPeriodDate(),
+  earliestApplicationDate = getEarliestApplicationDate(),
+  optEndDate = getOptEndDate(),
+
+}
+
+
+function getGraduationDate (){
+  let date = new Date (d3.select('#graduation').property('value'))
+  let newDate = date.toUTCString().slice(0,16)
+  return newDate
+}
+
+function getGraceEndPeriodDate (){
+  let gradDate = d3.select('#graduation').property('value')
+  let date = new Date(gracePeriodEnd(gradDate))
+  let newDate = date.toUTCString().slice(0,16)
+  return newDate
+}
+
+function getEarliestApplicationDate() {
+  let gradDate = d3.select('#graduation').property('value')
+  let date = new Date (earlyApplicationDate(gradDate))
+  let newDate = date.toUTCString().slice(0,16)
+  return newDate
+}
+
+function getOptEndDate (){
+  let startDate = d3.select('#startdate').property('value')
+  let date = new Date (endOPT(startDate))
+  let newDate = date.toUTCString().slice(0,16)
+  return newDate
+}
