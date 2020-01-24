@@ -105,3 +105,9 @@ line#dottedline{
   stroke-width: 5;
   fill: none;
 }
+
+.stemlabels {
+  font-family: 'Fjalla One', sans-serif;
+  background-color: black;
+  font-size: medium;
+}

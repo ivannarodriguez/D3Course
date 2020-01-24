@@ -129,6 +129,8 @@ let textdata = [{x: 60, y: -30, text:'USCIS can receive your application', group
                 {x: 370, y:680, text:'OPT starts', group:'labels'},
                 {x: 945, y: 680, text:'OPT ends', group:'labels'},
                 {x: 318, y: 285, text:'GRAD', group:'gradlabel'},
+                {x: 945, y:980, text:'STEM starts', group:'stemlabels'},
+                {x: 1435, y:980, text:'STEM ends', group:'stemlabels'}
               ]
 
 //adding a margin to the svg
@@ -239,7 +241,7 @@ d3.select('#stemExtension')
 
 // function that will decide if stem visual needs to be hidden or shown
 function showStem(show) {
-    d3.selectAll('svg .stem')
+    d3.selectAll('svg .stem, svg .stemlabels')
       .style('visibility', show? 'visible':'hidden')
 }
 
