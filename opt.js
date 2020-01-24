@@ -252,7 +252,77 @@ function showStem(show) {
       .style('visibility', show? 'visible':'hidden')
 }
 
+function importantDates(gradDate, startDate){
+  let newGradDate = new Date(gradDate)
+  let formatGradDate = newGradDate.toUTCString().slice(0,16)
+  let newStartDate = new Date(startDate)
+  let formatStartDate = newStartDate.toUTCString().slice(0,16)
+  return{
+  earliestApplicationDate : getEarliestApplicationDate(),
+  graduationDate : formatGradDate,
+  gracePeriodEnd : getGraceEndPeriodDate(),
+  startingDate : formatStartDate,
+  optEndDate : getOptEndDate(),
+  optGraceDaysEnd : getOPTGraceDaysEnd()
+}}
 
+
+function getGraduationDate (){
+  let date = new Date (d3.select('#graduation').property('value'))
+  let newDate = date.toUTCString().slice(0,16)
+  return newDate
+}
+
+function getGraceEndPeriodDate (){
+  let gradDate = d3.select('#graduation').property('value')
+  let date = new Date(gracePeriodEnd(gradDate))
+  let newDate = date.toUTCString().slice(0,16)
+  return newDate
+}
+
+function getEarliestApplicationDate() {
+  let gradDate = d3.select('#graduation').property('value')
+  let date = new Date (earlyApplicationDate(gradDate))
+  let newDate = date.toUTCString().slice(0,16)
+  return newDate
+}
+
+function getOptEndDate (){
+  let startDate = d3.select('#startingdate').property('value')
+  let date = new Date (endOPT(startDate))
+  let newDate = date.toUTCString().slice(0,16)
+  return newDate
+}
+
+function getOPTGraceDaysEnd (){
+  let startDate = d3.select('#startingdate').property('value')
+  let optEnd= endOPT(startDate)
+  let optGraceDaysEnd = gracePeriodEnd(optEnd)
+  let date = new Date(optGraceDaysEnd)
+  let newDate = date.toUTCString().slice(0,16)
+  return newDate
+}
+
+function showImportantDates (){
+  let dates = importantDates(d3.select('#graduation').property('value'),
+  d3.select('#startingdate').property('value'))
+  circledata[0].date = dates.earliestApplicationDate
+  circledata[1].date = dates.graduationDate
+  circledata[2].date = dates.gracePeriodEnd
+  circledata[3].date = dates.optEndDate
+  circledata[4].date = dates.optGraceDaysEnd
+  console.log('Does this work?')
+  let dateLables = canvas.selectAll('text')
+  .data(circledata)
+      .enter()
+      .append('text')
+      .attr('class', 'datelables')
+      .attr('x', d => xScale(d.x))
+      .attr('y', d=> yScale(d.y))
+      .text(circledata[1].date)
+    }
+
+d3.select('#goButton').on('click', showImportantDates)
 
 
 
