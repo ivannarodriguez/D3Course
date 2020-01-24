@@ -92,12 +92,14 @@ d3.select('#graduation').on('input', setGracePeriodEnd)
 */
 
 let circledata = [{ x: 0, y: 300, r: 15, group: 'endpoint', html: "Take about a week before this date to collect your documents so you can mail them to USCIS <strong>on this date.</strong> Prime time for USCIS to receive your application is between now and your program end date."}, //-90
-                { x: 300, y: 300, r: 30, group: 'grad', html: "This is your program end date. Congrats! You're done with school.", label:'GRAD'},      //grad
+                { x: 350, y: 300, r: 35, group: 'grad', html: "This is your program end date. Congrats! You're done with school.", label:'GRAD'},      //grad
                 { x: 500, y: 300, r: 15, group: 'endpoint', html: 'If you did not apply for OPT, or graduate school, you must leave the country by this date.'},  //60
                 { x: 1000, y: 600, r: 15, group: 'endpoint', html: 'You must terminate all employment by this date (refer to your EAD card), and you will have 60 grace days to leave the country.'}, //optend
-                { x: 1200, y: 600, r: 15, group: 'endpoint', html: 'You <strong>must</strong> be out of the country by this date.'}, //opt60
-                { x: 900, y: 900, r: 15, group: 'endpoint', html: ''}, //stemstartapplying
-                { x: 1200, y: 900, r: 15, group: 'endpoint', html: ''},] //stemstart
+                { x: 1120, y: 600, r: 15, group: 'endpoint', html: 'You <strong>must</strong> be out of the country by this date.'}, //opt60
+                { x: 900, y: 900, r: 15, group: 'stem', html: 'This is the first day your application can reach the USCIS office. Please be sure to apply for stem extension well before your last day for OPT'}, //stemstartapplying
+                { x: 1500, y: 900, r: 15, group: 'stem', html: 'You must terminate all employment by this date (refer to your EAD card), and you will have 60 grace days to leave the country.'},
+                { x: 1700, y: 900, r: 15, group: 'stem', html: ''}
+              ] //stemstart
 
 let linedata = [{x1: circledata[0].x, x2: circledata[2].x, y1:circledata[0].y, y2:circledata[0].y, group: 'blackline', html:''},
                 {x1: circledata[2].x, x2: circledata[3].x, y1:circledata[3].y, y2:circledata[3].y, group: 'blackline', html:'During this time, you can: <br/> 1. Work <br/> 2. Transfer SEVIS record for grad school.'},
@@ -105,36 +107,49 @@ let linedata = [{x1: circledata[0].x, x2: circledata[2].x, y1:circledata[0].y, y
                 {x1: circledata[1].x, x2: circledata[1].x, y1:circledata[0].y, y2:circledata[3].y, group: 'dottedline', html:''},
                 {x1: 0, x2: 0, y1:270, y2:330, group: 'blackline', html:''},
                 {x1: 500, x2: 500, y1:270, y2:330, group: 'blackline', html:''},
-                {x1: 300, x2: 300, y1:570, y2:630, group: 'blackline', html:''},
+                {x1: circledata[1].x, x2: circledata[1].x, y1:570, y2:630, group: 'blackline', html:''},
                 {x1: 500, x2: 500, y1:570, y2:630, group: 'blackline', html:''},
                 {x1: 1000, x2: 1000, y1:570, y2:630, group: 'blackline', html:''},
-                {x1: 1200, x2: 1200, y1:570, y2:630, group: 'blackline', html:''},
+                {x1: circledata[4].x, x2: circledata[4].x, y1:570, y2:630, group: 'blackline', html:''},
+                {x1: 900, x2: 1000, y1:900, y2:900, group: 'stem', linetype:'dottedline', html:''}, //first circle to stem start date line
+                {x1: 900, x2: 900, y1:870, y2:930, group: 'stem', linetype:'blackline', html:''}, //first circle vertical line
+                {x1: 1000, x2: 1000, y1:870, y2:930, group: 'stem', linetype:'blackline', html:''}, // stem start date circle vertical line
+                {x1: 1000, x2: 1500, y1:900, y2:900, group: 'stem', linetype:'blackline', html:''}, // stem horizontal line
+                {x1: 1500, x2: 1500, y1:870, y2:930, group: 'stem', linetype:'blackline', html:''}, // end date circle vertical line
+                {x1: 1500, x2: 1700, y1:900, y2:900, group: 'stem', linetype:'dottedline', html:''},
+                {x1: 1700, x2: 1700, y1:870, y2:930, group: 'stem', linetype:'blackline', html:''}
+
               ]
 
 let rectdata = [{x: circledata[0].x, y: 0, width: 500, height:300, html:'', group:'dottedline'},
-                {x: circledata[1].x, y:585, width:200, height:30, html:'You can request any start date that is within 60 days from your program end date (graduation). You can only start working once you have your EAD card in hand, and on or after the start date your EAD card specifies.', group:'endpoint'}
+                {x: circledata[1].x, y:585, width:150, height:30, html:'You can request any start date that is within 60 days from your program end date (graduation). You can only start working once you have your EAD card in hand, and on or after the start date your EAD card specifies.', group:'endpoint'}
+              ]
+
+let textdata = [{x: 60, y: -30, text:'USCIS can receive your application', group:'labels'},
+                {x: 370, y:680, text:'OPT starts', group:'labels'},
+                {x: 945, y: 680, text:'OPT ends', group:'labels'},
+                {x: 318, y: 285, text:'GRAD', group:'gradlabel'},
               ]
 
 //adding a margin to the svg
 let margin = { top: 200, right: 25, bottom: 30, left: 40 };
-let svgWidth = 800;
+let svgWidth = 1300;
 let svgHeight = 500;
 let width = svgWidth - margin.left - margin.right;
 let height = svgHeight - margin.top - margin.bottom;
 
-// create svg for scatterplot to b at
+// create svg for graphic
 let canvas = d3.select("body")
                 .append("svg")
                 .attr("width", svgWidth)
                 .attr("height", svgHeight)
-                // .style('background-color', 'yellow')
                 .append("g")
                   .attr('transform', "translate(" + margin.left + "," + margin.top + ")");
 
 //horizontal scale
 let xScale = d3.scaleLinear()
   .domain(d3.extent(circledata.map(d => d.x)))
-  .range([10,600])
+  .range([10,1000])
 
 //vertical scale
 let yScale = d3.scaleLinear()
@@ -150,6 +165,7 @@ let lines = canvas.selectAll('line')
       .attr('y1', d => yScale(d.y1))
       .attr('y2', d=> yScale(d.y2))
       .attr('class', d=> d.group)
+      .attr('id', d => d.linetype)
       .on('mouseover', showinfo)
       .on('mouseleave', hideinfo);
 
@@ -176,6 +192,16 @@ let rects = canvas.selectAll('rect')
     .on('mouseover', showinfo)
     .on('mouseleave', hideinfo);
 
+let text = canvas.selectAll('text')
+  .data(textdata)
+  .enter()
+  .append('text')
+    .text(d => d.text)
+    .attr('x', d => xScale(d.x))
+    .attr('y', d=> yScale(d.y))
+    .attr('class', d=> d.group)
+
+//tooltip
 let tooltip =  d3.select('body')
       .append('div')
       .attr("class", "tooltip")
@@ -201,6 +227,21 @@ function hideinfo(d,i){
 }
 
 
+//stem graphic control functions
+showStem(d3.select('#stemExtension').property('value') === 'Yes')
+
+//function that takes in the stem extension input and calls showStem function
+d3.select('#stemExtension')
+  .on('input', function() {
+  let show = d3.select(this).property('value') === 'Yes'
+  showStem(show)
+  })
+
+// function that will decide if stem visual needs to be hidden or shown
+function showStem(show) {
+    d3.selectAll('svg .stem')
+      .style('visibility', show? 'visible':'hidden')
+}
 
 
 
