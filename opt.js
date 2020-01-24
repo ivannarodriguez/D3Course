@@ -53,10 +53,12 @@ function setGracePeriodEnd (){
 
 //Function that recieves string with graduation date and set min date on the starting date
 //calendar
-function setGracePeriodStart (){
+function setGracePeriodStartPlusEnd (){
   graduationDate = d3.select('#graduation').property('value')
+  let date = gracePeriodEnd(graduationDate)
   d3.select('#startingdate')
   .property('min', graduationDate)
+  .property('max',date)
 }
 
 // This function will only work if a student qualifies for OPT. It recieves string with end date
@@ -80,7 +82,7 @@ function stemEndDate (str) {
 
 */
 
-d3.select('#graduation').on('input', setGracePeriodStart)
+d3.select('#graduation').on('input', setGracePeriodStartPlusEnd)
 //d3.select('#graduation').on('input', setGracePeriodStart(graduationDate))
 d3.select('#graduation').on('input', setGracePeriodEnd)
 
