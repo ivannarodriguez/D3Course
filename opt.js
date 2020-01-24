@@ -64,12 +64,10 @@ function setGracePeriodStartPlusEnd (){
 // This function will only work if a student qualifies for OPT. It recieves string with end date
 // adds 2 years to the end date
 function stemEndDate (str) {
-  if (qualifyStem === 'Yes') {
     var date = new Date(str)
     var stemEndDateTemp = new Date(date.setFullYear(date.getFullYear() + stemOptDuration))
     var stemEndDate = stemEndDateTemp.toJSON().slice(0,10)
     return stemEndDate
-  }
 }
 //let stemEnd = stemEndDate(optEndDate)
 
@@ -94,13 +92,13 @@ d3.select('#graduation').on('input', setGracePeriodStartPlusEnd)
 */
 
 let circledata = [{ x: 0, y: 300, r: 15, group: 'endpoint', html: "Take about a week before this date to collect your documents so you can mail them to USCIS <strong>on this date.</strong> Prime time for USCIS to receive your application is between now and your program end date."}, //-90
-                { x: 350, y: 300, r: 35, group: 'grad', html: "This is your program end date. Congrats! You're done with school.", label:'GRAD'},      //grad
+                { x: 350, y: 300, r: 40, group: 'grad', id: 'gradcircle', html: "This is your program end date. Congrats! You're done with school.", label:'GRAD'},      //grad
                 { x: 500, y: 300, r: 15, group: 'endpoint', html: 'If you did not apply for OPT, or graduate school, you must leave the country by this date.'},  //60
                 { x: 1000, y: 600, r: 15, group: 'endpoint', html: 'You must terminate all employment by this date (refer to your EAD card), and you will have 60 grace days to leave the country.'}, //optend
                 { x: 1120, y: 600, r: 15, group: 'endpoint', html: 'You <strong>must</strong> be out of the country by this date.'}, //opt60
-                { x: 900, y: 900, r: 15, group: 'stem', html: 'This is the first day your application can reach the USCIS office. Please be sure to apply for stem extension well before your last day for OPT'}, //stemstartapplying
-                { x: 1500, y: 900, r: 15, group: 'stem', html: 'You must terminate all employment by this date (refer to your EAD card), and you will have 60 grace days to leave the country.'},
-                { x: 1700, y: 900, r: 15, group: 'stem', html: ''}
+                { x: 900, y: 900, r: 15, group: 'stem', id: 'stemcircle', html: 'This is the first day your application can reach the USCIS office. Please be sure to apply for stem extension well before your last day for OPT'}, //stemstartapplying
+                { x: 1500, y: 900, r: 15, group: 'stem', id: 'stemcircle', html: 'You must terminate all employment by this date (refer to your EAD card), and you will have 60 grace days to leave the country.'},
+                { x: 1700, y: 900, r: 15, group: 'stem', id: 'stemcircle', html: ''}
               ] //stemstart
 
 let linedata = [{x1: circledata[0].x, x2: circledata[2].x, y1:circledata[0].y, y2:circledata[0].y, group: 'blackline', html:''},
@@ -128,11 +126,11 @@ let rectdata = [{x: circledata[0].x, y: 0, width: 500, height:300, html:'', grou
               ]
 
 let textdata = [{x: 60, y: -30, text:'USCIS can receive your application', group:'labels'},
-                {x: 370, y:680, text:'OPT starts', group:'labels'},
-                {x: 945, y: 680, text:'OPT ends', group:'labels'},
+                {x: 370, y:570, text:'OPT starts', group:'labels'},
+                {x: 945, y: 550, text:'OPT ends', group:'labels'},
                 {x: 318, y: 285, text:'GRAD', group:'gradlabel'},
-                {x: 945, y:980, text:'STEM starts', group:'stemlabels'},
-                {x: 1435, y:980, text:'STEM ends', group:'stemlabels'}
+                {x: 945, y:840, text:'STEM starts', group:'stemlabels'},
+                {x: 1435, y:840, text:'STEM ends', group:'stemlabels'}
               ]
 
 //adding a margin to the svg
@@ -252,16 +250,12 @@ function showStem(show) {
       .style('visibility', show? 'visible':'hidden')
 }
 
-function importantDates(gradDate, startDate){
-  let newGradDate = new Date(gradDate)
-  let formatGradDate = newGradDate.toUTCString().slice(0,16)
-  let newStartDate = new Date(startDate)
-  let formatStartDate = newStartDate.toUTCString().slice(0,16)
+function importantDates(){
   return{
   earliestApplicationDate : getEarliestApplicationDate(),
-  graduationDate : formatGradDate,
+  graduationDate : getGraduationDate(),
   gracePeriodEnd : getGraceEndPeriodDate(),
-  startingDate : formatStartDate,
+  startingDate : getStartingDate(),
   optEndDate : getOptEndDate(),
   optGraceDaysEnd : getOPTGraceDaysEnd()
 }}
@@ -269,29 +263,29 @@ function importantDates(gradDate, startDate){
 
 function getGraduationDate (){
   let date = new Date (d3.select('#graduation').property('value'))
-  let newDate = date.toUTCString().slice(0,16)
+  let newDate = date.toUTCString().slice(5,16)
   return newDate
 }
 
 function getGraceEndPeriodDate (){
   let gradDate = d3.select('#graduation').property('value')
   let date = new Date(gracePeriodEnd(gradDate))
-  let newDate = date.toUTCString().slice(0,16)
+  let newDate = date.toUTCString().slice(5,16)
   return newDate
 }
 
 function getEarliestApplicationDate() {
   let gradDate = d3.select('#graduation').property('value')
   let date = new Date (earlyApplicationDate(gradDate))
-  let newDate = date.toUTCString().slice(0,16)
+  let newDate = date.toUTCString().slice(5,16)
   return newDate
 }
 
 function getOptEndDate (){
   let startDate = d3.select('#startingdate').property('value')
   let date = new Date (endOPT(startDate))
-  let newDate = date.toUTCString().slice(0,16)
-  return newDate
+  let newDate = date.toUTCString().slice(5,16)
+  return newDate 
 }
 
 function getOPTGraceDaysEnd (){
@@ -299,34 +293,64 @@ function getOPTGraceDaysEnd (){
   let optEnd= endOPT(startDate)
   let optGraceDaysEnd = gracePeriodEnd(optEnd)
   let date = new Date(optGraceDaysEnd)
-  let newDate = date.toUTCString().slice(0,16)
+  let newDate = date.toUTCString().slice(5,16)
+  return newDate
+}
+
+function getStartingDate(){
+  let startDate = d3.select('#startingdate').property('value')
+  let date = new Date(startDate)
+  let newDate = date.toUTCString().slice(5,16)
+  return newDate
+}
+
+function getStemStartDate(){
+  let stemDate = getOptEndDate()
+  return stemDate
+}
+
+function getStemEndDate (){
+  let stemDate = getStemStartDate()
+  let stemEndDate = stemEndDate(stemDate)
+  let date = new Date(stemEndDate)
+  let newDate = date.toUTCString().slice(5,16)
+  return newDate
+}
+
+
+function getEarliestStemApp (){
+  let stemStart = getStemStartDate()
+  let earliestApp = earlyApplicationDate(stemStart)
+  let date = new Date(earliestApp)
+  let newDate = date.toUTCString().slice(5,16)
+  return newDate
+}
+
+function getStemGraceEnd (){
+  let stemEnd = getStemEndDate()
+  let graceEnd = gracePeriodEnd(stemEnd)
+  let date = new Date(graceEnd)
+  let newDate = date.toUTCString().slice(5,16)
   return newDate
 }
 
 function showImportantDates (){
-  let dates = importantDates(d3.select('#graduation').property('value'),
-  d3.select('#startingdate').property('value'))
+  let dates = importantDates()
   circledata[0].date = dates.earliestApplicationDate
   circledata[1].date = dates.graduationDate
   circledata[2].date = dates.gracePeriodEnd
   circledata[3].date = dates.optEndDate
   circledata[4].date = dates.optGraceDaysEnd
   console.log('Does this work?')
-  let dateLables = canvas.selectAll('text')
+  let dateLables = canvas.selectAll('text.datelabels')
   .data(circledata)
       .enter()
       .append('text')
-      .attr('class', 'datelables')
+      .attr('class', 'datelabels')
       .attr('x', d => xScale(d.x))
-      .attr('y', d=> yScale(d.y))
-      .text(circledata[1].date)
+      .attr('y', d => d.id === 'gradcircle'? yScale(d.y +50) : yScale(d.y+6.15*d.r))
+      .text(d => d.date)
     }
 
 d3.select('#goButton').on('click', showImportantDates)
-
-
-
-
-
-
 
