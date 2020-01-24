@@ -36,7 +36,7 @@ div#dropdowns{
 
 
 /*could these widths be done in js so theyre variable?*/
-span#STEM {
+span#extension-dropdown {
   width: 300px;
 }
 select {
@@ -109,4 +109,9 @@ line#dottedline{
   font-family: 'Fjalla One', sans-serif;
   background-color: black;
   font-size: medium;
+}
+
+.creds{
+  font-size: small;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }

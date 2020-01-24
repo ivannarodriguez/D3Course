@@ -231,6 +231,10 @@ function hideinfo(d,i){
     .style('stroke', undefined)
 }
 
+d3.select('body')
+  .append('div')
+  .attr('class', 'creds')
+  .html('This visualization was created by Sarah Samuel, Ivanna Rodriguez, and Ivan Lainez to fulfill the requirements of  <a href="https://rpruim.github.io/D3/projects/project-gallery.html"> Math W82: Data Visualization with D3</a> at Calvin University, January 2020.')
 
 //stem graphic control functions
 showStem(d3.select('#stemExtension').property('value') === 'Yes')
