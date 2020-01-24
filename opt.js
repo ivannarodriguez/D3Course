@@ -3,10 +3,6 @@ const earliestApplication = -90 //-90 days
 const optDuration = 1 // 1 year
 const stemOptDuration = 2 //2 years
 
-let graduationDate = d3.select('#graduation').property('value')
-
-let startingdate = d3.select('#startingdate').property('value')
-
 let qualifyStem = d3.select('#stemExtension').property('value')
 
 // Function that recieves graduation date and calculates the date of the 60 day grace
@@ -42,21 +38,14 @@ function endOPT (str){
 
 //let optEndDate = endOPT(startingdate)
 
-//Function that recieves string with grace period end date and sets the max date on the
-// starting date calendar
-function setGracePeriodEnd (){
-  graduationDate = d3.select('#graduation').property('value')
-  var date = gracePeriodEnd(graduationDate)
-  d3.select('#startingdate')
-  .property('max', date);
-}
 
-//Function that recieves string with graduation date and set min date on the starting date
-//calendar
-function setGracePeriodStart (){
+//Function that sets min date and max date on the starting date calendar
+function setGracePeriodStartPlusEnd (){
   graduationDate = d3.select('#graduation').property('value')
+  let date = gracePeriodEnd(graduationDate)
   d3.select('#startingdate')
   .property('min', graduationDate)
+  .property('max', date)
 }
 
 // This function will only work if a student qualifies for OPT. It recieves string with end date
@@ -80,9 +69,8 @@ function stemEndDate (str) {
 
 */
 
-d3.select('#graduation').on('input', setGracePeriodStart)
-//d3.select('#graduation').on('input', setGracePeriodStart(graduationDate))
-d3.select('#graduation').on('input', setGracePeriodEnd)
+d3.select('#graduation').on('input', setGracePeriodStartPlusEnd)
+
 
 /*
 *
@@ -244,7 +232,78 @@ function showStem(show) {
 }
 
 
+function importantDates(gradDate, startDate){
+  let newGradDate = new Date(gradDate)
+  let formatGradDate = newGradDate.toUTCString().slice(0,16)
+  let newStartDate = new Date(startDate)
+  let formatStartDate = newStartDate.toUTCString().slice(0,16)
+  return{
+  earliestApplicationDate : getEarliestApplicationDate(),
+  graduationDate : formatGradDate,
+  gracePeriodEnd : getGraceEndPeriodDate(),
+  startingDate : formatStartDate,
+  optEndDate : getOptEndDate(),
+  optGraceDaysEnd : getOPTGraceDaysEnd()
+}}
 
+
+function getGraduationDate (){
+  let date = new Date (d3.select('#graduation').property('value'))
+  let newDate = date.toUTCString().slice(0,16)
+  return newDate
+}
+
+function getGraceEndPeriodDate (){
+  let gradDate = d3.select('#graduation').property('value')
+  let date = new Date(gracePeriodEnd(gradDate))
+  let newDate = date.toUTCString().slice(0,16)
+  return newDate
+}
+
+function getEarliestApplicationDate() {
+  let gradDate = d3.select('#graduation').property('value')
+  let date = new Date (earlyApplicationDate(gradDate))
+  let newDate = date.toUTCString().slice(0,16)
+  return newDate
+}
+
+function getOptEndDate (){
+  let startDate = d3.select('#startingdate').property('value')
+  let date = new Date (endOPT(startDate))
+  let newDate = date.toUTCString().slice(0,16)
+  return newDate
+}
+
+function getOPTGraceDaysEnd (){
+  let startDate = d3.select('#startingdate').property('value')
+  let optEnd= endOPT(startDate)
+  let optGraceDaysEnd = gracePeriodEnd(optEnd)
+  let date = new Date(optGraceDaysEnd)
+  let newDate = date.toUTCString().slice(0,16)
+  return newDate
+}
+
+function showImportantDates (){
+  let dates = importantDates(d3.select('#graduation').property('value'),
+  d3.select('#startingdate').property('value'))
+  circledata[0].date = dates.earliestApplicationDate
+  circledata[1].date = dates.graduationDate
+  circledata[2].date = dates.gracePeriodEnd
+  circledata[3].date = dates.optEndDate
+  circledata[4].date = dates.optGraceDaysEnd
+  console.log('Does this work?')
+  let dateLables = canvas.selectAll('text')
+//console.log(circledata)
+  .data(circledata)
+      .enter()
+      .append('text')
+      .attr('class', 'datelables')
+      .attr('x', d => xScale(d.x))
+      .attr('y', d=> yScale(d.y))
+      .text(circledata[1].date)
+    }
+
+//d3.select('#goButton').on('click', showImportantDates)
 
 
 
