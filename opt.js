@@ -208,9 +208,10 @@ let text = canvas.selectAll('text')
 //tooltip
 let tooltip =  d3.select('body')
       .append('div')
+      .html('Hover over an element in the graphic for more information.')
       .attr("class", "tooltip")
       .style("position", "absolute")
-      .style("visibility", 'hidden');
+      .style("visibility", 'visible');
         
 function showinfo(d,i){
   d3.select('.tooltip')
