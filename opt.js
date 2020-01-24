@@ -84,7 +84,7 @@ function stemEndDate (str) {
 
 d3.select('#graduation').on('input', setGracePeriodStartPlusEnd)
 //d3.select('#graduation').on('input', setGracePeriodStart(graduationDate))
-d3.select('#graduation').on('input', setGracePeriodEnd)
+
 
 /*
 *
