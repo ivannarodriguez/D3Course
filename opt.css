@@ -13,6 +13,13 @@ label{
   font-size: medium;
 }
 
+.datelabels {
+  font-family: 'Fjalla One', sans-serif;
+  fill: black;
+  font-size: small;
+  text-anchor: middle;
+}
+
 p{
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 1rem;
@@ -20,7 +27,7 @@ p{
   line-height: 1.6;
 }
 
-.gradlabel{
+.gradlabel {
   font-family: 'Fjalla One', sans-serif;
   fill: white;
   font-size: large;
