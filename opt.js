@@ -349,7 +349,7 @@ function showImportantDates (){
     .data(circledata)
       .enter()
       .append('text')
-      .style('visibility','visible')
+      //.style('visibility','visible')
       //.attr('class', d => d.id === 'gradcircle'? 'graddatelabel' : 'datelabels')
       .attr('class', function(d){
                         if(d.id==='gradcircle'){    
@@ -363,6 +363,7 @@ function showImportantDates (){
       .attr('x', d => xScale(d.x))
       .attr('y', d => d.id === 'gradcircle' ? yScale(d.y + 45) : yScale(d.y+6*d.r))
       .text(d => d.date)
+  d3.selectAll('text.stemdatelabels').style('visibility','hidden')
   //canvas.selectAll('text.datelabels').style('visibility', 'visible')
   let rectangleDateLabels = canvas.selectAll('text.dateLabels')
   .data(rectdata)
