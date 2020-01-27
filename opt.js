@@ -238,7 +238,7 @@ d3.select('#stemExtension')
 
 // function that will decide if stem visual needs to be hidden or shown
 function showStem(show) {
-    d3.selectAll('svg .stem, svg .stemlabels')
+    d3.selectAll('svg .stem, svg .stemlabels, svg .stemdatelabels')
       .style('visibility', show? 'visible':'hidden')
 }
 
@@ -249,7 +249,12 @@ function importantDates(){
   gracePeriodEnd : getGraceEndPeriodDate(),
   startingDate : getStartingDate(),
   optEndDate : getOptEndDate(),
-  optGraceDaysEnd : getOPTGraceDaysEnd()
+  optGraceDaysEnd : getOPTGraceDaysEnd(),
+  stemEarly : getEarliestStemApp(),
+  stemStartDate : getStemStartDate(),
+  stemEndDate : getStemEndDate(),
+  stemGraceEndDate : getStemGraceEnd()
+
 }}
 
 
@@ -303,8 +308,8 @@ function getStemStartDate(){
 
 function getStemEndDate (){
   let stemDate = getStemStartDate()
-  let stemEndDate = stemEndDate(stemDate)
-  let date = new Date(stemEndDate)
+  let stemEndDate1 = stemEndDate(stemDate)
+  let date = new Date(stemEndDate1)
   let newDate = date.toUTCString().slice(5,16)
   return newDate
 }
@@ -333,16 +338,33 @@ function showImportantDates (){
   circledata[2].date = dates.gracePeriodEnd
   circledata[3].date = dates.optEndDate
   circledata[4].date = dates.optGraceDaysEnd
+  circledata[5].date = dates.stemEarly
+  circledata[6].date = dates.stemStartDate
+  circledata[7].date = dates.stemEndDate
+  circledata[8].date = dates.stemGraceEndDate
   rectdata[1].date = dates.startingDate
-  let circleDateLables = canvas.selectAll('text.circleDatelabels')
-  .data(circledata)
+  let circleDateLabels = canvas.selectAll('text.datelabels')//.style('visibility', 'hidden')
+  // circleDateLabels.exit().remove()
+  // circleDateLabels
+    .data(circledata)
       .enter()
       .append('text')
-      .attr('class', d => d.id === 'gradcircle'? 'graddatelabel' : 'datelabels')
+      .style('visibility','visible')
+      //.attr('class', d => d.id === 'gradcircle'? 'graddatelabel' : 'datelabels')
+      .attr('class', function(d){
+                        if(d.id==='gradcircle'){    
+                          return 'graddatelabel'
+                        }else if (d.id === 'stemcircle'){
+                          return 'stemdatelabels'
+                        }else {
+                          return 'datelabels'
+                        }
+                      })
       .attr('x', d => xScale(d.x))
       .attr('y', d => d.id === 'gradcircle' ? yScale(d.y + 45) : yScale(d.y+6*d.r))
       .text(d => d.date)
-  let rectangleDateLabels = canvas.selectAll('text.rectangleDateLabels')
+  //canvas.selectAll('text.datelabels').style('visibility', 'visible')
+  let rectangleDateLabels = canvas.selectAll('text.dateLabels')
   .data(rectdata)
       .enter()
       .append('text')
