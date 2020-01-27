@@ -33,6 +33,10 @@ span {
   text-align: left;
 }
 
+input {
+  width: 145px;
+}
+
 select {
   width: 200px;
 }
@@ -67,11 +71,16 @@ button:hover{
   opacity: 0.7;
   width:200px;
   left: 450px;
-  top: 350px;
+  top: 320px;
   padding-top: 20px;
   padding-right: 20px;
   padding-bottom: 20px;
   padding-left: 20px;
+}
+
+.note{
+  font-size: small;
+  font-family:'Roboto', sans-serif;
 }
 
 .dottedline{
