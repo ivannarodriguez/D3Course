@@ -85,11 +85,11 @@ let circledata = [{ x: 0, y: 300, r: 15, group: 'endpoint', html: "Take about a 
                 { x: 350, y: 300, r: 40, group: 'grad', id: 'gradcircle', html: "This is your program end date. Congrats! You're done with school.", label:'GRAD'},      //grad
                 { x: 500, y: 300, r: 15, group: 'endpoint', html: 'If you have not applied for OPT and recieved a pending receipt, <strong> NOR </strong> have transferred your SEVIS record to graduate school you must leave the country by this date.'},  //60
                 { x: 1000, y: 600, r: 15, group: 'endpoint', html: 'You must terminate all employment by this date (refer to your EAD card). You will have 60 days to leave the country or transfer your SEVIS record to graduate school.'}, //optend
-                { x: 1120, y: 600, r: 15, group: 'endpoint', html: 'If you have not transferred your SEVIS record to graduate school you <strong>must</strong> be out of the country by this date'}, //opt60
+                { x: 1125, y: 600, r: 15, group: 'endpoint', html: 'If you have not transferred your SEVIS record to graduate school you <strong>must</strong> be out of the country by this date'}, //opt60
                 { x: 800, y: 900, r: 15, group: 'stem', id: 'stemcircle', html: 'This is the first day your application can arrive at the USCIS office. Please be sure to apply for stem extension well before your OPT end date.'}, //stemstartapplying
                 { x: 1000, y: 900, r: 15, group: 'stem', id: 'stemcircle', html:'This is your STEM start date.'}, //stem starts second circle
                 { x: 1590, y: 900, r: 15, group: 'stem', id: 'stemcircle', html: 'You must terminate all employment by this date (refer to your EAD card). You will have 60 days to leave the country or transfer your SEVIS record to graduate school. If you transfer to graduate school, you <strong> must </strong> start classes within 5 months of your STEM opt end date.'},
-                { x: 1700, y: 900, r: 15, group: 'stem', id: 'stemcircle', html: 'If you have not transferred your SEVIS record to graduate school you <strong>must</strong> be out of the country by this date.'}
+                { x: 1720, y: 900, r: 15, group: 'stem', id: 'stemcircle', html: 'If you have not transferred your SEVIS record to graduate school you <strong>must</strong> be out of the country by this date.'}
               ]
 
 let linedata = [{x1: circledata[0].x, x2: circledata[2].x, y1:circledata[0].y, y2:circledata[0].y, group: 'blackline', html:''},
@@ -107,8 +107,8 @@ let linedata = [{x1: circledata[0].x, x2: circledata[2].x, y1:circledata[0].y, y
                 {x1: 1000, x2: 1000, y1:870, y2:930, group: 'stem', linetype:'blackline', html:''}, // stem start date circle vertical line
                 {x1: 1000, x2: 1590, y1:900, y2:900, group: 'stem', linetype:'blackline', html:''}, // stem horizontal line
                 {x1: 1590, x2: 1590, y1:870, y2:930, group: 'stem', linetype:'blackline', html:''}, // end date circle vertical line
-                {x1: 1500, x2: 1700, y1:900, y2:900, group: 'stem', linetype:'dottedline', html:''},
-                {x1: 1700, x2: 1700, y1:870, y2:930, group: 'stem', linetype:'blackline', html:''}
+                {x1: 1500, x2: 1720, y1:900, y2:900, group: 'stem', linetype:'dottedline', html:''},
+                {x1: 1720, x2: 1720, y1:870, y2:930, group: 'stem', linetype:'blackline', html:''}
 
               ]
 
@@ -121,7 +121,7 @@ let textdata = [{x: 60, y: -30, text:'USCIS can receive your application', group
                 {x: 945, y: 550, text:'OPT ends', group:'labels'},
                 {x: 318, y: 285, text:'GRAD', group:'gradlabel'},
                 {x: 945, y:840, text:'STEM starts', group:'stemlabels'},
-                {x: 1435, y:840, text:'STEM ends', group:'stemlabels'},
+                {x: 1535, y:840, text:'STEM ends', group:'stemlabels'},
                 {x: 0, y:900, text:'* Figure not drawn to scale', group:'note'}
               ]
 
