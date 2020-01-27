@@ -116,19 +116,7 @@ line#dottedline{
   fill: none;
 }
 
-.stemlabels {
-  font-family: 'Fjalla One', sans-serif;
-  background-color: black;
-  font-size: medium;
-}
-
-.labels{
-  font-family: 'Fjalla One', sans-serif;
-  fill: black;
-  font-size: medium;
-}
-
-.datelabels, .stemdatelabels {
+.datelabels, .stemdatelabels, .labels, .stemlabels {
   font-family: 'Fjalla One', sans-serif;
   fill: black;
   font-size: small;

@@ -109,7 +109,7 @@ let linedata = [{x1: circledata[0].x, x2: circledata[2].x, y1:circledata[0].y, y
                 {x1: 1590, x2: 1590, y1:870, y2:930, group: 'stem', linetype:'blackline', html:''}, // end date circle vertical line
                 {x1: 1500, x2: 1720, y1:900, y2:900, group: 'stem', linetype:'dottedline', html:''},
                 {x1: 1720, x2: 1720, y1:870, y2:930, group: 'stem', linetype:'blackline', html:''},
-                {x1: 1000, x2: 1000, y1: 700, y2:900, group:'stem', linetype: 'dottedline', html:''}
+                {x1: 1000, x2: 1000, y1: 690, y2:820, group:'stem', linetype: 'dottedline', html:''} //opt to stem vertical dotted line 
 
               ]
 
@@ -117,12 +117,12 @@ let rectdata = [{x: circledata[0].x, y: 0, width: 500, height:300, html:'', grou
                 {x: circledata[1].x, y:585, width:150, height:30, html:'You can request any start date that is within 60 days from your program end date (graduation). You can only start working once you have your EAD card in hand, and on or after the start date your EAD card specifies.', group:'endpoint'}
               ]
 
-let textdata = [{x: 60, y: -30, text:'USCIS can receive your application', group:'labels'},
-                {x: 370, y:570, text:'OPT starts', group:'labels'},
-                {x: 945, y: 550, text:'OPT ends', group:'labels'},
+let textdata = [{x: 250, y: -30, text:'USCIS can receive your application', group:'labels'},
+                {x: 425, y:570, text:'OPT starts', group:'labels'},
+                {x: 1000, y: 550, text:'OPT ends', group:'labels'},
                 {x: 318, y: 285, text:'GRAD', group:'gradlabel'},
-                {x: 945, y:840, text:'STEM starts', group:'stemlabels'},
-                {x: 1535, y:840, text:'STEM ends', group:'stemlabels'},
+                {x: 1000, y:850, text:'STEM starts', group:'stemlabels'},
+                {x: 1590, y:850, text:'STEM ends', group:'stemlabels'},
                 {x: 0, y:900, text:'* Figure not drawn to scale', group:'note'}
               ]
 
@@ -345,7 +345,7 @@ function showImportantDates (){
   circledata[8].date = dates.stemGraceEndDate
   rectdata[1].date = dates.startingDate
   let circleDateLabels = canvas.selectAll('text.datelabels')//.style('visibility', 'hidden')
-  // circleDateLabels.exit().remove()
+  // circleDateLabels.remove()
   // circleDateLabels
     .data(circledata)
       .enter()
@@ -362,7 +362,7 @@ function showImportantDates (){
                         }
                       })
       .attr('x', d => xScale(d.x))
-      .attr('y', d => d.id === 'gradcircle' ? yScale(d.y + 45) : yScale(d.y+6*d.r))
+      .attr('y', d => d.id === 'gradcircle' ? yScale(d.y + 45) : yScale(d.y+5*d.r))
       .text(d => d.date)
   d3.selectAll('text.stemdatelabels').style('visibility','hidden')
   //canvas.selectAll('text.datelabels').style('visibility', 'visible')
