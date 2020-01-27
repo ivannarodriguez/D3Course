@@ -333,8 +333,8 @@ function showImportantDates (){
   circledata[2].date = dates.gracePeriodEnd
   circledata[3].date = dates.optEndDate
   circledata[4].date = dates.optGraceDaysEnd
-  console.log('Does this work?')
-  let dateLables = canvas.selectAll('text.datelabels')
+  rectdata[1].date = dates.startingDate
+  let circleDateLables = canvas.selectAll('text.circleDatelabels')
   .data(circledata)
       .enter()
       .append('text')
@@ -342,6 +342,15 @@ function showImportantDates (){
       .attr('x', d => xScale(d.x))
       .attr('y', d => d.id === 'gradcircle' ? yScale(d.y + 45) : yScale(d.y+6*d.r))
       .text(d => d.date)
+  let rectangleDateLabels = canvas.selectAll('text.rectangleDateLabels')
+  .data(rectdata)
+      .enter()
+      .append('text')
+      .attr('class', 'datelabels')
+      .attr('x', d=> xScale(d.x+d.width/2))
+      .attr('y', d=> yScale(d.y+70))
+      .text(d=> d.date)
+  console.log('Do you work?')
     }
 
 d3.select('#goButton').on('click', showImportantDates)
