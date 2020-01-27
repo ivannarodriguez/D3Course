@@ -123,6 +123,8 @@ let textdata = [{x: 250, y: -30, text:'USCIS can receive your application', grou
                 {x: 318, y: 285, text:'GRAD', group:'gradlabel'},
                 {x: 1000, y:850, text:'STEM starts', group:'stemlabels'},
                 {x: 1590, y:850, text:'STEM ends', group:'stemlabels'},
+                {x: 750, y:580, text:'12 months', group:'labels'},
+                {x: 1310, y:880, text:'24 months', group:'stemlabels'},
                 {x: 0, y:900, text:'* Figure not drawn to scale', group:'note'}
               ]
 
