@@ -69,16 +69,6 @@ function stemEndDate (str) {
     var stemEndDate = stemEndDateTemp.toJSON().slice(0,10)
     return stemEndDate
 }
-//let stemEnd = stemEndDate(optEndDate)
-
-// This function will only draw a timeline if a stident qualifies for OPT.
-
-/*function stemDrawLine (str)
-//  if qualifyStem === 'Yes'
-//
-//
-
-*/
 
 d3.select('#graduation').on('input', setGracePeriodStartPlusEnd)
 //d3.select('#graduation').on('input', setGracePeriodStart(graduationDate))
@@ -86,24 +76,24 @@ d3.select('#graduation').on('input', setGracePeriodStartPlusEnd)
 
 /*
 *
-* G R A P H I C  
+* G R A P H I C
 * S T A R T S  H E R E
 *
 */
 
-let circledata = [{ x: 0, y: 300, r: 15, group: 'endpoint', html: "Take about a week before this date to collect your documents so you can mail them to USCIS <strong>on this date.</strong> Prime time for USCIS to receive your application is between now and your program end date."}, //-90
+let circledata = [{ x: 0, y: 300, r: 15, group: 'endpoint', html: "Take about a week before this date to gather all documents related to the application. Your application can arrive at the USCIS office <strong> no earlier </strong> than this date. Prime time for USCIS to receive your application is between now and your program end date."}, //-90
                 { x: 350, y: 300, r: 40, group: 'grad', id: 'gradcircle', html: "This is your program end date. Congrats! You're done with school.", label:'GRAD'},      //grad
-                { x: 500, y: 300, r: 15, group: 'endpoint', html: 'If you did not apply for OPT, or graduate school, you must leave the country by this date.'},  //60
-                { x: 1000, y: 600, r: 15, group: 'endpoint', html: 'You must terminate all employment by this date (refer to your EAD card), and you will have 60 grace days to leave the country.'}, //optend
-                { x: 1120, y: 600, r: 15, group: 'endpoint', html: 'You <strong>must</strong> be out of the country by this date.'}, //opt60
-                { x: 880, y: 900, r: 15, group: 'stem', id: 'stemcircle', html: 'This is the first day your application can reach the USCIS office. Please be sure to apply for stem extension well before your last day for OPT'}, //stemstartapplying
-                { x: 1000, y: 900, r: 15, group: 'stem', id: 'stemcircle', html:''}, //stem starts second circle
-                { x: 1590, y: 900, r: 15, group: 'stem', id: 'stemcircle', html: 'You must terminate all employment by this date (refer to your EAD card), and you will have 60 grace days to leave the country.'},
-                { x: 1700, y: 900, r: 15, group: 'stem', id: 'stemcircle', html: ''}
-              ] 
+                { x: 500, y: 300, r: 15, group: 'endpoint', html: 'If you have not applied for OPT and recieved a pending receipt, <strong> NOR </strong> have transferred your SEVIS record to graduate school you must leave the country by this date.'},  //60
+                { x: 1000, y: 600, r: 15, group: 'endpoint', html: 'You must terminate all employment by this date (refer to your EAD card). You will have 60 days to leave the country or transfer your SEVIS record to graduate school.'}, //optend
+                { x: 1120, y: 600, r: 15, group: 'endpoint', html: 'If you have not transferred your SEVIS record to graduate school you <strong>must</strong> be out of the country by this date'}, //opt60
+                { x: 800, y: 900, r: 15, group: 'stem', id: 'stemcircle', html: 'This is the first day your application can arrive at the USCIS office. Please be sure to apply for stem extension well before your OPT end date.'}, //stemstartapplying
+                { x: 1000, y: 900, r: 15, group: 'stem', id: 'stemcircle', html:'This is your STEM start date.'}, //stem starts second circle
+                { x: 1590, y: 900, r: 15, group: 'stem', id: 'stemcircle', html: 'You must terminate all employment by this date (refer to your EAD card). You will have 60 days to leave the country or transfer your SEVIS record to graduate school. If you transfer to graduate school, you <strong> must </strong> start classes within 5 months of your STEM opt end date.'},
+                { x: 1700, y: 900, r: 15, group: 'stem', id: 'stemcircle', html: 'If you have not transferred your SEVIS record to graduate school you <strong>must</strong> be out of the country by this date.'}
+              ]
 
 let linedata = [{x1: circledata[0].x, x2: circledata[2].x, y1:circledata[0].y, y2:circledata[0].y, group: 'blackline', html:''},
-                {x1: circledata[2].x, x2: circledata[3].x, y1:circledata[3].y, y2:circledata[3].y, group: 'blackline', html:'During this time, you can: <br/> 1. Work <br/> 2. Transfer SEVIS record for grad school.'},
+                {x1: circledata[2].x, x2: circledata[3].x, y1:circledata[3].y, y2:circledata[3].y, group: 'blackline', html:'During this time, you can: <br/> 1. Work <br/> 2. Transfer SEVIS record to graduate school.'},
                 {x1: circledata[3].x, x2: circledata[4].x, y1:circledata[3].y, y2:circledata[3].y, group: 'dottedline', html:''},
                 {x1: circledata[1].x, x2: circledata[1].x, y1:circledata[0].y, y2:circledata[3].y, group: 'dottedline', html:''},
                 {x1: 0, x2: 0, y1:270, y2:330, group: 'blackline', html:''},
@@ -112,8 +102,8 @@ let linedata = [{x1: circledata[0].x, x2: circledata[2].x, y1:circledata[0].y, y
                 {x1: 500, x2: 500, y1:570, y2:630, group: 'blackline', html:''},
                 {x1: 1000, x2: 1000, y1:570, y2:630, group: 'blackline', html:''},
                 {x1: circledata[4].x, x2: circledata[4].x, y1:570, y2:630, group: 'blackline', html:''},
-                {x1: 880, x2: 1000, y1:900, y2:900, group: 'stem', linetype:'dottedline', html:''}, //first circle to stem start date line
-                {x1: 880, x2: 880, y1:870, y2:930, group: 'stem', linetype:'blackline', html:''}, //first circle vertical line
+                {x1: 800, x2: 1000, y1:900, y2:900, group: 'stem', linetype:'dottedline', html:''}, //first circle to stem start date line
+                {x1: 800, x2: 800, y1:870, y2:930, group: 'stem', linetype:'blackline', html:''}, //first circle vertical line
                 {x1: 1000, x2: 1000, y1:870, y2:930, group: 'stem', linetype:'blackline', html:''}, // stem start date circle vertical line
                 {x1: 1000, x2: 1590, y1:900, y2:900, group: 'stem', linetype:'blackline', html:''}, // stem horizontal line
                 {x1: 1590, x2: 1590, y1:870, y2:930, group: 'stem', linetype:'blackline', html:''}, // end date circle vertical line
@@ -212,7 +202,7 @@ let tooltip =  d3.select('body')
       .attr("class", "tooltip")
       .style("position", "absolute")
       .style("visibility", 'visible');
-        
+
 function showinfo(d,i){
   d3.select('.tooltip')
     .style("visibility", "visible")
@@ -287,7 +277,7 @@ function getOptEndDate (){
   let startDate = d3.select('#startingdate').property('value')
   let date = new Date (endOPT(startDate))
   let newDate = date.toUTCString().slice(5,16)
-  return newDate 
+  return newDate
 }
 
 function getOPTGraceDaysEnd (){
@@ -355,4 +345,3 @@ function showImportantDates (){
     }
 
 d3.select('#goButton').on('click', showImportantDates)
-
