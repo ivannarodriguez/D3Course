@@ -95,7 +95,7 @@ let circledata = [{ x: 0, y: 300, r: 15, group: 'endpoint', html: "Take about a 
 let linedata = [{x1: circledata[0].x, x2: circledata[2].x, y1:circledata[0].y, y2:circledata[0].y, group: 'blackline', html:''},
                 {x1: circledata[2].x, x2: circledata[3].x, y1:circledata[3].y, y2:circledata[3].y, group: 'blackline', html:'During this time, you can: <br/> 1. Work <br/> 2. Transfer SEVIS record to graduate school.'},
                 {x1: circledata[3].x, x2: circledata[4].x, y1:circledata[3].y, y2:circledata[3].y, group: 'dottedline', html:''},
-                {x1: circledata[1].x, x2: circledata[1].x, y1:circledata[0].y, y2:circledata[3].y, group: 'dottedline', html:''},
+                {x1: circledata[1].x, x2: circledata[1].x, y1:circledata[0].y+100, y2:circledata[3].y, group: 'dottedline', html:''},
                 {x1: 0, x2: 0, y1:270, y2:330, group: 'blackline', html:''},
                 {x1: 500, x2: 500, y1:270, y2:330, group: 'blackline', html:''},
                 {x1: circledata[1].x, x2: circledata[1].x, y1:570, y2:630, group: 'blackline', html:''},
@@ -108,7 +108,8 @@ let linedata = [{x1: circledata[0].x, x2: circledata[2].x, y1:circledata[0].y, y
                 {x1: 1000, x2: 1590, y1:900, y2:900, group: 'stem', linetype:'blackline', html:''}, // stem horizontal line
                 {x1: 1590, x2: 1590, y1:870, y2:930, group: 'stem', linetype:'blackline', html:''}, // end date circle vertical line
                 {x1: 1500, x2: 1720, y1:900, y2:900, group: 'stem', linetype:'dottedline', html:''},
-                {x1: 1720, x2: 1720, y1:870, y2:930, group: 'stem', linetype:'blackline', html:''}
+                {x1: 1720, x2: 1720, y1:870, y2:930, group: 'stem', linetype:'blackline', html:''},
+                {x1: 1000, x2: 1000, y1: 700, y2:900, group:'stem', linetype: 'dottedline', html:''}
 
               ]
 
