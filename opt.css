@@ -128,7 +128,7 @@ line#dottedline{
   font-size: medium;
 }
 
-.datelabels {
+.datelabels, .stemdatelabels {
   font-family: 'Fjalla One', sans-serif;
   fill: black;
   font-size: small;
