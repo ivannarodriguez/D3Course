@@ -232,7 +232,7 @@ function hideinfo(d,i){
 d3.select('body')
   .append('div')
   .attr('class', 'creds')
-  .html('This visualization was created by Sarah Samuel, Ivanna Rodriguez, and Ivan Lainez to fulfill the requirements of  <a href="https://rpruim.github.io/D3/projects/project-gallery.html"> Math W82: Data Visualization with D3</a> at Calvin University, January 2020.')
+  .html('This visualization was created by Sarah Samuel, Ivanna Rodríguez, and Iván Laínez to fulfill the requirements of  <a href="https://rpruim.github.io/D3/projects/project-gallery.html"> Math W82: Data Visualization with D3</a> at Calvin University, January 2020.')
 
 //stem graphic control functions
 showStem(d3.select('#stemExtension').property('value') === 'Yes')
@@ -346,9 +346,9 @@ function showImportantDates (){
   .data(circledata)
       .enter()
       .append('text')
-      .attr('class', 'datelabels')
+      .attr('class', d => d.id === 'gradcircle'? 'graddatelabel' : 'datelabels')
       .attr('x', d => xScale(d.x))
-      .attr('y', d => d.id === 'gradcircle'? yScale(d.y +50) : yScale(d.y+6.15*d.r))
+      .attr('y', d => d.id === 'gradcircle' ? yScale(d.y + 45) : yScale(d.y+6*d.r))
       .text(d => d.date)
     }
 

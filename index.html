@@ -11,35 +11,35 @@
     <title>OPT Timeline</title>
     <!--fonts-->
     <link href="https://fonts.googleapis.com/css?family=Fjalla+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300&display=swap" rel="stylesheet">
   </head>
   <body>
     <h1>Optional Practical Training (OPT) Timeline</h1>
-    <p>The following visualization is a timeline of the OPT application process.
-      Your graduation date refers to the day of your last class as a Calvin student.
-      Your desired start date refers to the employment start date that you want to request
-      to USCIS on your application. <br>
+    <p>The following visualization is meant to guide you through the OPT application process by showing you a timeline of important dates. 
+      Enter the date of your last class as a Calvin Student for <em> End Date</em>.
+      Enter your desired employment start date for <em>Start Date</em>. 
       If your major qualifies as a Science, Technology, Engineering or Mathematics (STEM)
-      designated major, select yes.
+      designated major, select yes to view the timeline to apply for the STEM extension.
     </p>
     <div id = "dropdowns">
-      <span id = "grad">
-        <label for="Graduation">Program End Date: </label>
+      <span>
+        <label for="Graduation"> End Date: </label>
         <input id = 'graduation'type="date">
       </span>
-      <span id ="start">
-          <label for="Start">Desired Job Start Date: </label>
+      <span>
+          <label for="Start"> Start Date: </label>
           <input id = 'startingdate'type="date">
       </span>
-      <span id="extension-dropdown">
-          <label for="STEM">Do you qualify for STEM extension?</label>
-          <select id='stemExtension'>
+      <span>
+        <button id = 'goButton' type =' button'>Show Dates</button>
+      </span>
+      <span>
+          <label id = "stem-dropdown">Do you qualify for STEM extension?</label>
+          <select id = 'stemExtension'>
             <option value="No">No</option>
             <option value="Yes">Yes</option>
           </select>
         </span>
-      <span >
-        <button id = 'goButton' type =' button'>Show Dates</button>
-      </span>
     </div>
 
     <!-- div where the graph will take place -->
