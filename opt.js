@@ -214,6 +214,7 @@ function showinfo(d,i){
   d3.select(this)
     .style('fill', d.html.length===0?undefined:'maroon') //only change color when text is available
     .style('stroke', d.html.length===0?undefined:'maroon') //only change color when text is available
+    .style('cursor', 'help')
 }
 
 function hideinfo(d,i){
