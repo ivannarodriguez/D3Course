@@ -1,3 +1,9 @@
+/* Title: Optional Practical Training (OPT) Timeline 
+  Created by: Ivanna Rodriguez, Ivan Lainez, and Sarah Samuel
+  Created for MATH W82: Data Visualization with D3
+  Date: January 2020
+ */
+
 const graceDays = 60 //60 days
 const earliestApplication = -90 //-90 days
 const optDuration = 1 // 1 year
@@ -40,19 +46,8 @@ function endOPT (str){
     return endDate;
 }
 
-//let optEndDate = endOPT(startingdate)
 
-//Function that recieves string with grace period end date and sets the max date on the
-// starting date calendar
-function setGracePeriodEnd (){
-  graduationDate = d3.select('#graduation').property('value')
-  var date = gracePeriodEnd(graduationDate)
-  d3.select('#startingdate')
-  .property('max', date);
-}
-
-//Function that recieves string with graduation date and set min date on the starting date
-//calendar
+//Function that sets min date and max date on the starting date calendar
 function setGracePeriodStartPlusEnd (){
   graduationDate = d3.select('#graduation').property('value')
   let date = gracePeriodEnd(graduationDate)
@@ -105,7 +100,7 @@ let linedata = [{x1: circledata[0].x, x2: circledata[2].x, y1:circledata[0].y, y
                 {x1: 800, x2: 1000, y1:900, y2:900, group: 'stem', linetype:'dottedline', html:''}, //first circle to stem start date line
                 {x1: 800, x2: 800, y1:870, y2:930, group: 'stem', linetype:'blackline', html:''}, //first circle vertical line
                 {x1: 1000, x2: 1000, y1:870, y2:930, group: 'stem', linetype:'blackline', html:''}, // stem start date circle vertical line
-                {x1: 1000, x2: 1590, y1:900, y2:900, group: 'stem', linetype:'blackline', html:''}, // stem horizontal line
+                {x1: 1000, x2: 1590, y1:900, y2:900, group: 'stem', linetype:'blackline', html:'During this time, you can: <br/> 1. Work <br/> 2. Transfer SEVIS record to graduate school.'}, // stem horizontal line
                 {x1: 1590, x2: 1590, y1:870, y2:930, group: 'stem', linetype:'blackline', html:''}, // end date circle vertical line
                 {x1: 1500, x2: 1720, y1:900, y2:900, group: 'stem', linetype:'dottedline', html:''},
                 {x1: 1720, x2: 1720, y1:870, y2:930, group: 'stem', linetype:'blackline', html:''},
@@ -246,6 +241,7 @@ function showStem(show) {
       .style('visibility', show? 'visible':'hidden')
 }
 
+//Function that gets all important dates and returns important dates object
 function importantDates(){
   return{
   earliestApplicationDate : getEarliestApplicationDate(),
@@ -261,13 +257,14 @@ function importantDates(){
 
 }}
 
-
+//Function that returns the graduation date in correct format
 function getGraduationDate (){
   let date = new Date (d3.select('#graduation').property('value'))
   let newDate = date.toUTCString().slice(5,16)
   return newDate
 }
 
+//Function that returns the first grace period date in correct format
 function getGraceEndPeriodDate (){
   let gradDate = d3.select('#graduation').property('value')
   let date = new Date(gracePeriodEnd(gradDate))
@@ -275,6 +272,7 @@ function getGraceEndPeriodDate (){
   return newDate
 }
 
+//Function that returns the earliest day to apply in correct format
 function getEarliestApplicationDate() {
   let gradDate = d3.select('#graduation').property('value')
   let date = new Date (earlyApplicationDate(gradDate))
@@ -282,6 +280,7 @@ function getEarliestApplicationDate() {
   return newDate
 }
 
+//Function that returns the opt end date in correct format
 function getOptEndDate (){
   let startDate = d3.select('#startingdate').property('value')
   let date = new Date (endOPT(startDate))
@@ -289,6 +288,7 @@ function getOptEndDate (){
   return newDate
 }
 
+//Function that returns the graduation date in correct format
 function getOPTGraceDaysEnd (){
   let startDate = d3.select('#startingdate').property('value')
   let optEnd= endOPT(startDate)
@@ -298,6 +298,7 @@ function getOPTGraceDaysEnd (){
   return newDate
 }
 
+//Function that returns the starting date in correct format
 function getStartingDate(){
   let startDate = d3.select('#startingdate').property('value')
   let date = new Date(startDate)
@@ -305,11 +306,13 @@ function getStartingDate(){
   return newDate
 }
 
+//Function that returns the stem start date in correct format
 function getStemStartDate(){
   let stemDate = getOptEndDate()
   return stemDate
 }
 
+//Function that returns the stem end date in correct format
 function getStemEndDate (){
   let stemDate = getStemStartDate()
   let stemEndDate1 = stemEndDate(stemDate)
@@ -318,7 +321,7 @@ function getStemEndDate (){
   return newDate
 }
 
-
+//Function that returns the earliest date you can apply for stem in correct format
 function getEarliestStemApp (){
   let stemStart = getStemStartDate()
   let earliestApp = earlyApplicationDate(stemStart)
@@ -327,6 +330,7 @@ function getEarliestStemApp (){
   return newDate
 }
 
+//Function that returns the stem grace period date in correct format
 function getStemGraceEnd (){
   let stemEnd = getStemEndDate()
   let graceEnd = gracePeriodEnd(stemEnd)
@@ -335,6 +339,8 @@ function getStemGraceEnd (){
   return newDate
 }
 
+//Function that creates and important dates object and then writes the date on the 
+//correct location
 function showImportantDates (){
   clearDateLabels()
   let dates = importantDates()
@@ -348,14 +354,10 @@ function showImportantDates (){
   circledata[7].date = dates.stemEndDate
   circledata[8].date = dates.stemGraceEndDate
   rectdata[1].date = dates.startingDate
-  let circleDateLabels = canvas.selectAll('text.datelabels')//.style('visibility', 'hidden')
-  // circleDateLabels.remove()
-  // circleDateLabels
+  let circleDateLabels = canvas.selectAll('text.datelabels')
     .data(circledata)
       .enter()
       .append('text')
-      //.style('visibility','visible')
-      //.attr('class', d => d.id === 'gradcircle'? 'graddatelabel' : 'datelabels')
       .attr('class', function(d){
                         if(d.id==='gradcircle'){    
                           return 'graddatelabel'
@@ -370,7 +372,6 @@ function showImportantDates (){
       .attr('id', 'cleardates')
       .text(d => d.date)
   d3.selectAll('text.stemdatelabels').style('visibility', d3.select('#stemExtension').property('value') === 'Yes' ? 'visble': 'hidden')
-  //canvas.selectAll('text.datelabels').style('visibility', 'visible')
   let rectangleDateLabels = canvas.selectAll('text.dateLabels')
   .data(rectdata)
       .enter()
@@ -380,7 +381,6 @@ function showImportantDates (){
       .attr('y', d=> yScale(d.y+70))
       .attr('id','cleardates')
       .text(d=> d.date)
-  console.log('Do you work?')
     }
 
 d3.select('#goButton').on('click', showImportantDates)
