@@ -335,6 +335,7 @@ function getStemGraceEnd (){
 }
 
 function showImportantDates (){
+  clearDateLabels()
   let dates = importantDates()
   circledata[0].date = dates.earliestApplicationDate
   circledata[1].date = dates.graduationDate
@@ -365,8 +366,9 @@ function showImportantDates (){
                       })
       .attr('x', d => xScale(d.x))
       .attr('y', d => d.id === 'gradcircle' ? yScale(d.y + 45) : yScale(d.y+5*d.r))
+      .attr('id', 'cleardates')
       .text(d => d.date)
-  d3.selectAll('text.stemdatelabels').style('visibility','hidden')
+  d3.selectAll('text.stemdatelabels').style('visibility', d3.select('#stemExtension').property('value') === 'Yes' ? 'visble': 'hidden')
   //canvas.selectAll('text.datelabels').style('visibility', 'visible')
   let rectangleDateLabels = canvas.selectAll('text.dateLabels')
   .data(rectdata)
@@ -375,8 +377,13 @@ function showImportantDates (){
       .attr('class', 'datelabels')
       .attr('x', d=> xScale(d.x+d.width/2))
       .attr('y', d=> yScale(d.y+70))
+      .attr('id','cleardates')
       .text(d=> d.date)
   console.log('Do you work?')
     }
 
 d3.select('#goButton').on('click', showImportantDates)
+
+function clearDateLabels (){
+  d3.selectAll('#cleardates').remove()
+}
