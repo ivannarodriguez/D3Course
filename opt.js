@@ -112,7 +112,7 @@ let rectdata = [{x: circledata[0].x, y: 0, width: 500, height:300, html:'', grou
                 {x: circledata[1].x, y:585, width:150, height:30, html:'You can request any start date that is within 60 days from your program end date (graduation). You can only start working once you have your EAD card in hand, and on or after the start date your EAD card specifies.', group:'endpoint'}
               ]
 
-let textdata = [{x: 250, y: -30, text:'USCIS can receive your application', group:'labels'},
+let textdata = [{x: 250, y: -30, text:'USCIS can receive your application', group:'USCISLabel'},
                 {x: 425, y:570, text:'OPT starts', group:'labels'},
                 {x: 1000, y: 550, text:'OPT ends', group:'labels'},
                 {x: 318, y: 285, text:'GRAD', group:'gradlabel'},

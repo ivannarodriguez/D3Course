@@ -122,6 +122,13 @@ line#dottedline{
   fill: none;
 }
 
+.USCISLabel {
+  font-family: 'Fjalla One', sans-serif;
+  fill: black;
+  font-size: medium;
+  text-anchor: middle;
+}
+
 .datelabels, .stemdatelabels, .labels, .stemlabels {
   font-family: 'Fjalla One', sans-serif;
   fill: black;
